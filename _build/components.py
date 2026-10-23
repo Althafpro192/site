@@ -230,7 +230,7 @@ def stat_card(value: str, label: str, note: str = "") -> str:
 
 
 def gallery_tile(g: dict) -> str:
-    return f'''<a class="tile" href="{g["b"]}" data-lb data-gg="{esc(g["g"])}" aria-label="Perbesar: {esc(g["c"])}">
+    return f'''<a class="tile" href="{g["b"]}" data-lb data-gg="{esc(g["g"])}" data-cap="{esc(g["c"])}" aria-label="Perbesar: {esc(g["c"])}">
   <img src="{g["s"]}" alt="" loading="lazy" decoding="async">
   <span class="tile__cap">{esc(g["c"])}</span>
 </a>'''
