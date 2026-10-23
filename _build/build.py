@@ -238,8 +238,13 @@ def used_classes(pages: list[str]) -> set[str]:
             found |= {"." + c for c in attr.split() if c}
     main = (JS / "main.js").read_text(encoding="utf-8")
     for attr in CLASS_ATTR.findall(main):
-        for token in attr.split():
-            if "${" not in token and re.fullmatch(r"[_a-zA-Z][\w-]*", token):
+        # Buang seluruh ekspresi ${ ... } lebih dulu. Menguji per token tidak
+        # cukup: "chip ${x === g ? \"on\" : \"\"}" dipecah spasi menjadi token
+        # bersih bernama "g" dan "page", yang lalu dilaporkan sebagai kelas
+        # tanpa gaya. Gerbang yang menjerit palsu akan diabaikan orang.
+        stripped = re.sub(r"\$\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}", " ", attr)
+        for token in stripped.split():
+            if re.fullmatch(r"[_a-zA-Z][\w-]*", token):
                 found.add("." + token)
     for args in CLASSLIST.findall(main):
         for s in STRING.findall(args):
@@ -452,7 +457,11 @@ def print_report(pages: list[str], strict: bool) -> int:
     for p in pages:
         doc = (ROOT / p).read_text(encoding="utf-8")
         body = doc[doc.index("<body"):]
-        first = re.search(r'<a class="skip" href="#main">', body)
+        # Marker @GENERATED adalah komentar, dan komentar bukan elemen:
+        # skip link tetap anak pertama <body> secara DOM. Mengukur dengan
+        # jarak byte membuat pemeriksaan ini selalu gagal setelah injeksi.
+        body_no_comments = re.sub(r"<!--.*?-->", "", body, flags=re.S)
+        first = re.search(r'<a class="skip" href="#main">', body_no_comments)
         problems = []
         if not first:
             problems.append("skip link")

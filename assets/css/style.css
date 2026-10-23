@@ -545,6 +545,8 @@
 
   .stack { display: grid; gap: var(--sp-4); }
 
+  .stack--tight { gap: var(--sp-2); }
+
   .toolbar {
     display: flex;
     align-items: center;
