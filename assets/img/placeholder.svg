@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="475" viewBox="0 0 760 475">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0E4D3C"/><stop offset="1" stop-color="#0A3B2E"/></linearGradient>
+<pattern id="p" width="46" height="46" patternUnits="userSpaceOnUse"><path d="M23 4 40 16v20L23 48 6 36V16Z" fill="none" stroke="#1FA05C" stroke-opacity=".18" stroke-width="1.4"/></pattern>
+</defs>
+<rect width="760" height="475" fill="url(#g)"/><rect width="760" height="475" fill="url(#p)"/>
+<circle cx="690" cy="60" r="130" fill="#FFC531" opacity=".10"/>
+<circle cx="60" cy="430" r="150" fill="#1FA05C" opacity=".14"/>
+<image href="logo-SMK3.png" x="300" y="120" width="160" height="160"/>
+<text x="380" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="34" fill="#FFFFFF" letter-spacing="1">SMKN 8 JEMBER</text>
+<text x="380" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#FFC531" letter-spacing="4">BISA &amp; HEBAT • ESKALABER</text>
+</svg>
