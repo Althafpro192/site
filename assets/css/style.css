@@ -1017,59 +1017,6 @@
       stroke var(--t-2) linear;
   }
 
-  /* -----------------------------------------
-     Reduced motion: content stays, theatre leaves.
-     ----------------------------------------- */
-  @media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-      animation-duration: .01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .01ms !important;
-      scroll-behavior: auto !important;
-    }
-
-    html { scroll-behavior: auto; }
-
-    .reveal,
-    .reveal-rule,
-    .reveal-img {
-      opacity: 1 !important;
-      transform: none !important;
-      clip-path: none !important;
-      transition: none !important;
-    }
-
-    .boot { display: none !important; }
-
-    /* A reduced-motion visitor is never locked out of the page. */
-    html.js.is-loading,
-    html.js.is-loading body { overflow: visible; }
-
-    .ticker-track,
-    .mitra--marquee { animation: none !important; }
-
-    .ticker-view {
-      overflow-x: auto;
-      scroll-snap-type: x proximity;
-    }
-
-    [data-parallax],
-    [data-tilt],
-    .hero-visual,
-    .hero-mosaic img,
-    .jcard:hover,
-    .bcell:hover,
-    .ncard:hover { transform: none !important; }
-
-    ::view-transition-old(root),
-    ::view-transition-new(root) {
-      animation: none !important;
-      mix-blend-mode: normal !important;
-    }
-  }
 }
 
 @layer components {
@@ -3508,7 +3455,67 @@
     .boot, .ticker, .nav, .topbar, .totop, .skip, .lightbox, #videobox, .reader { display: none !important; }
     body { background: #fff; }
   }
-}
+
+
+  /* -----------------------------------------
+     Reduced motion. This block MUST live in a layer declared
+     after `components`: layer order, not source order, decides
+     which rule wins, so an override left in `motion` silently
+     loses to a component's own declaration.
+     ----------------------------------------- */
+  /* -----------------------------------------
+     Reduced motion: content stays, theatre leaves.
+     ----------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    html { scroll-behavior: auto; }
+
+    .reveal,
+    .reveal-rule,
+    .reveal-img {
+      opacity: 1 !important;
+      transform: none !important;
+      clip-path: none !important;
+      transition: none !important;
+    }
+
+    .boot { display: none !important; }
+
+    /* A reduced-motion visitor is never locked out of the page. */
+    html.js.is-loading,
+    html.js.is-loading body { overflow: visible; }
+
+    .ticker-track,
+    .mitra--marquee { animation: none !important; }
+
+    .ticker-view {
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+    }
+
+    [data-parallax],
+    [data-tilt],
+    .hero-visual,
+    .hero-mosaic img,
+    .jcard:hover,
+    .bcell:hover,
+    .ncard:hover { transform: none !important; }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none !important;
+      mix-blend-mode: normal !important;
+    }
+  }}
 
 @layer utilities {
 
