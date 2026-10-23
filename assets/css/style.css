@@ -1270,6 +1270,13 @@
   .mobile-menu a.active { color: var(--text-strong); font-weight: 600; }
   .mobile-menu a:hover { background: var(--surface-2); color: var(--text-strong); }
 
+  /* Was an inline margin/width/justify triple on the drawer's call to action. */
+  .mobile-menu .drawer-cta {
+    justify-content: center;
+    margin-top: var(--sp-3);
+    border-bottom: 0;
+  }
+
   /* -----------------------------------------
      News ticker
      ----------------------------------------- */
