@@ -1590,11 +1590,11 @@
   .uline > svg {
     position: absolute;
     left: 0;
-    bottom: -.06em;
+    bottom: -.02em;
     inline-size: 100%;
-    block-size: .16em;
+    block-size: .11em;
     color: var(--accent);
-    overflow: visible;
+    overflow: hidden;
   }
 
   .hero .lead { margin-top: var(--sp-6); }
