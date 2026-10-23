@@ -18,29 +18,60 @@ python3 -m http.server 8080   # lalu buka http://localhost:8080
 Keduanya didukung. Karena itu proyek ini sengaja **tidak** memakai ES modules,
 `fetch()` parsial, bundler, atau framework apa pun.
 
-## Sistem desain: "Agro Editorial"
+## Sistem desain: "Lumina"
 
-Kertas krem hangat, pinus tua, terakota sebagai warna aksi. Grid 12 kolom
-asimetris, hairline, bingkai cetak offset, dan angka raksasa sebagai elemen
-grafis — bukan glassmorphism, bukan gradien SaaS.
+Terang, hangat, dan berlapis. Permukaan kaca dengan bingkai gradien, kartu
+bertint, dan kedalaman 3D — bukan flat, bukan gelap korporat.
+
+**Palet diturunkan dari logo sekolah, bukan dipilih sembarangan.** Logo
+SMKN 8 Jember didominasi kuning (#EFE804, 58% area) sebagai latar pendidikan:
+kehati-hatian, keceriaan, kebahagiaan. Tiga warna lain di logo menjadi penanda
+rumpun keahlian, dan dipakai konsisten di seluruh situs:
+
+| Warna | Kode | Rumpun |
+|---|---|---|
+| Kuning | `#F7C600` (UI) / `#EFE804` (logo) | Identitas & aksi utama |
+| Hijau | `#246C18` | Agribisnis Tanaman — ATPH, APT |
+| Biru | `#1162BF` | Teknologi Informasi — DKV, RPL, TKJ |
+| Merah | `#CF1D0D` | Teknik Otomotif — TKR, TSM |
+
+Kartu jurusan membawa `data-prog="green|blue|red"`, sehingga lencana, nomor,
+dan tint kacanya mengikuti rumpunnya. Beranda dan halaman jurusan memakai
+penanda yang sama.
 
 | | |
 |---|---|
-| Display & numeral | **Fraunces** (`opsz 9–144`, `wght 400–900`, sumbu `SOFT`/`WONK`) |
-| Teks, UI, tabel | **Instrument Sans** 400–700 |
-| Font | self-host di `assets/fonts/` (4 berkas woff2, ±164 KB, lisensi OFS) |
-| Tema | terang (default) dan gelap pinus; toggle di navbar, tersimpan di `localStorage` |
+| Display | **Sora** 300–800 |
+| Teks, UI, tabel | **Manrope** 400–800 |
+| Font | self-host di `assets/fonts/` (4 berkas woff2, ±86 KB) |
+| Tema | **terang (default)** dan gelap hangat; toggle di navbar, tersimpan di `localStorage` |
+| Kedalaman | mozaik hero 3D berlapis (`translateZ`), tilt mengikuti kursor pada 17 kartu, kedalaman ikut `--px/--py` dari satu pass rAF |
 
-Token dibagi dua lapis: **tier 1** palet mentah (tidak pernah dibaca komponen)
-dan **tier 2** semantik (`--bg`, `--surface`, `--text`, `--hot`, …). Tema gelap
-hanya menimpa tier 2, sehingga tidak ada satu pun aturan komponen bercabang
-per tema. Stylesheet disusun dengan `@layer`:
-`reset, tokens, base, layout, motion, components, overrides, utilities`.
+Token dibagi dua lapis: **tier 1** palet mentah dan **tier 2** semantik
+(`--bg`, `--surface`, `--text`, `--hot`, `--prog-*`, …). Tema gelap hanya
+menimpa tier 2. Stylesheet memakai `@layer`:
 
-**Aturan keras:** tidak ada literal warna di luar `:root`/`[data-theme]`, dan
-tidak ada `style="…"` di halaman. `--accent`/`--gold`/`--sprout-300` adalah
-warna dekoratif dan **tidak pernah** dipakai untuk teks — pasangan teks yang
-ada semuanya sudah diukur ≥ 4.5:1 (WCAG AA) di kedua tema.
+```
+reset, tokens, base, layout, motion, components, overrides, utilities, lumina
+```
+
+`lumina` adalah lapisan kulit visual — ia hanya menyentuh permukaan, gradien,
+kaca, dan 3D; struktur dan kontrak JS tetap di lapisan sebelumnya. Itu sebabnya
+arah visual bisa diganti total tanpa menyentuh tata letak atau `main.js`.
+
+**Aturan keras:** tidak ada literal warna di luar token, tidak ada `style="…"`
+di halaman, dan **kuning tidak pernah dipakai sebagai teks di atas putih**
+(#EFE804 hanya 1,3:1). Kuning selalu berupa isian dengan tinta gelap di atasnya
+(9,99:1), sedangkan teks emas memakai `--brand-700 #8A6600` (5,27:1). Seluruh
+pasangan teks terukur ≥ 4,5:1 (WCAG AA) di kedua tema.
+
+### Responsif
+
+Breakpoint mengikuti isi, bukan perangkat: 1200 / 1080 / 1024 / 900 / 640.
+Nav horizontal runtuh ke drawer pada **900px**, titik di mana sepuluh tautan
+plus lockup plus toggle benar-benar tidak lagi muat. Di bawah 900px blur berat
+dan transformasi 3D dimatikan demi performa, dan pada pointer kasar semua
+kontrol utama berukuran ≥ 44px.
 
 ## 10 Halaman
 

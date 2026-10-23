@@ -7,7 +7,7 @@
    which is what keeps the dark theme a 40-line override.
    ========================================================= */
 
-@layer reset, tokens, base, layout, motion, components, overrides, utilities;
+@layer reset, tokens, base, layout, motion, components, overrides, utilities, lumina;
 
 @layer tokens {
 
@@ -16,35 +16,35 @@
         runtime dependency on any third party
      ----------------------------------------- */
   @font-face {
-    font-family: 'Fraunces';
+    font-family: 'Sora';
     font-style: normal;
-    font-weight: 400 900;
+    font-weight: 300 800;
     font-display: swap;
-    src: url(../fonts/fraunces-latin.woff2) format('woff2');
+    src: url(../fonts/sora-latin.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
   }
   @font-face {
-    font-family: 'Fraunces';
+    font-family: 'Sora';
     font-style: normal;
-    font-weight: 400 900;
+    font-weight: 300 800;
     font-display: swap;
-    src: url(../fonts/fraunces-latin-ext.woff2) format('woff2');
+    src: url(../fonts/sora-latin-ext.woff2) format('woff2');
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
   }
   @font-face {
-    font-family: 'Instrument Sans';
+    font-family: 'Manrope';
     font-style: normal;
-    font-weight: 400 700;
+    font-weight: 400 800;
     font-display: swap;
-    src: url(../fonts/instrumentsans-latin.woff2) format('woff2');
+    src: url(../fonts/manrope-latin.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
   }
   @font-face {
-    font-family: 'Instrument Sans';
+    font-family: 'Manrope';
     font-style: normal;
-    font-weight: 400 700;
+    font-weight: 400 800;
     font-display: swap;
-    src: url(../fonts/instrumentsans-latin-ext.woff2) format('woff2');
+    src: url(../fonts/manrope-latin-ext.woff2) format('woff2');
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
   }
 
@@ -52,40 +52,52 @@
      2. PALETTE (tier 1) — raw colour, never
         referenced by a component rule
      ----------------------------------------- */
+  /* -----------------------------------------
+     PALETTE — diturunkan dari logo sekolah
+     Kuning #EFE804 (58% area logo) adalah latar pendidikan:
+     kehati-hatian, keceriaan, kebahagiaan. Tiga warna lain
+     adalah penanda rumpun keahlian, bukan hiasan:
+       hijau  #246C18 · Agribisnis Tanaman
+       biru   #1162BF · Teknologi Informasi
+       merah  #CF1D0D · Teknik Otomotif
+     ----------------------------------------- */
   :root {
-    --paper-0: #FBF7EE;
-    --paper-1: #FFFDF8;
-    --paper-2: #F4EDE0;
-    --paper-3: #EBE1CF;
+    --paper-0: #FFFCF3;
+    --paper-1: #FFFFFF;
+    --paper-2: #FFF8E6;
+    --paper-3: #F8F0D9;
 
-    --pine-900: #0B2F26;
-    --pine-800: #0E3A30;
-    --pine-700: #14473B;
-    --pine-600: #1C5A4A;
+    --ink-900: #12161E;
+    --ink-700: #2B3240;
+    --ink-500: #5C6779;
 
-    --sprout-700: #0F7A54;
-    --sprout-500: #12A26E;
-    --sprout-300: #1FE3A0;
-    --sprout-wash: #DFF0E4;
+    /* kuning logo: #EFE804 terlalu terang untuk teks/putih, jadi
+       dipakai versi UI yang tetap terbaca dengan tinta gelap di atasnya */
+    --brand-700: #8A6600;
+    --brand-600: #D9A900;
+    --brand-500: #F7C600;
+    --brand-400: #FFD83D;
+    --brand-100: #FFF0B8;
 
-    --terra-700: #8A3419;
-    --terra-500: #B34526;
-    --terra-300: #D9764F;
-    --terra-wash: #F2E2D8;
+    --green-700: #246C18;
+    --green-500: #2E8B22;
+    --green-100: #E6F4E1;
+
+    --blue-700: #0E4FA0;
+    --blue-500: #1162BF;
+    --blue-100: #E4EEFB;
+
+    --red-700: #A8160A;
+    --red-500: #CF1D0D;
+    --red-100: #FCE7E4;
 
     --amber-700: #8A5A12;
-    --amber-500: #E4B24C;
-    --amber-wash: #F7EAD1;
-
-    --ink-900: #0B2F26;
-    --ink-700: #22382F;
-    --ink-500: #4E5F57;
-    --bone: #F2EDE1;
+    --amber-500: #E4A03C;
+    --amber-100: #FDF0DA;
 
     /* -----------------------------------------
-       3. SEMANTIC (tier 2) — the only tokens a
-          component is allowed to read
-     ----------------------------------------- */
+       SEMANTIK (tier 2) — hanya ini yang dibaca komponen
+       ----------------------------------------- */
     color-scheme: light;
 
     --bg: var(--paper-0);
@@ -97,75 +109,95 @@
     --text-strong: var(--ink-900);
     --text-muted: var(--ink-500);
 
-    --line: #DFD6C4;
-    --line-strong: #C9BFA9;
+    --line: #EDE3CB;
+    --line-strong: #DCCFAC;
     --rule: 1px solid var(--line);
 
-    --accent: var(--sprout-500);
-    --accent-text: var(--sprout-700);
-    --accent-wash: var(--sprout-wash);
+    --accent: var(--blue-500);
+    --accent-text: var(--blue-700);
+    --accent-wash: var(--blue-100);
 
-    --hot: var(--terra-500);
-    --hot-strong: var(--terra-700);
-    --hot-wash: var(--terra-wash);
-    --on-hot: #FFF9F2;
+    --hot: var(--brand-500);
+    --hot-strong: var(--brand-600);
+    --hot-wash: var(--brand-100);
+    --on-hot: #2A2000;
 
     --gold: var(--amber-500);
     --gold-ink: var(--amber-700);
-    --gold-wash: var(--amber-wash);
+    --gold-wash: var(--amber-100);
 
-    --shell-bg: var(--pine-900);
-    --on-shell: var(--bone);
-    --on-shell-muted: #A6B3AB;
-    --on-accent: #08221E;
+    --prog-green: var(--green-700);
+    --prog-green-wash: var(--green-100);
+    --prog-blue: var(--blue-700);
+    --prog-blue-wash: var(--blue-100);
+    --prog-red: var(--red-700);
+    --prog-red-wash: var(--red-100);
 
-    --focus: var(--sprout-700);
-    --focus-on-shell: var(--sprout-300);
+    --shell-bg: #14161B;
+    --on-shell: #FFF9EA;
+    --on-shell-muted: #B9BDC7;
+    --on-accent: #FFFFFF;
 
-    --success: #0F7A54;
+    --focus: var(--blue-700);
+    --focus-on-shell: var(--brand-400);
+
+    --success: #246C18;
     --warning: #8A5A12;
-    --error: #A32E1E;
-    --info: #1B5E8C;
+    --error: #A8160A;
+    --info: #0E4FA0;
 
-    /* Contextual pair: a section opts into a shell and every
-       descendant recolours itself. This replaces the old
-       `.section[style*="background:#fff"]` attribute-sniff hack. */
     --ctx-text: var(--text);
     --ctx-muted: var(--text-muted);
     --ctx-line: var(--line);
 
     /* -----------------------------------------
-       4. TYPOGRAPHY
-     ----------------------------------------- */
-    --font-display: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
-    --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+       PERMUKAAN KACA & GRADIEN
+       ----------------------------------------- */
+    --glass: linear-gradient(158deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.72) 52%, rgba(255,253,246,.86) 100%);
+    --glass-border: linear-gradient(140deg, rgba(247,198,0,.55) 0%, rgba(255,255,255,.9) 34%, rgba(255,255,255,.55) 62%, rgba(17,98,191,.30) 100%);
+    --glass-shadow: 0 1px 0 rgba(255,255,255,1) inset,
+      0 2px 6px -2px rgba(24,28,38,.05),
+      0 26px 54px -26px rgba(24,28,38,.26);
+    --glass-shadow-hover: 0 1px 0 rgba(255,255,255,1) inset,
+      0 34px 68px -28px rgba(24,28,38,.34);
 
-    --t-hero: clamp(3.2rem, 9.5vw, 7.5rem);
-    --t-8xl: clamp(2.6rem, 7vw, 5rem);
-    --t-7xl: clamp(2.1rem, 5vw, 3.8rem);
-    --t-6xl: clamp(1.75rem, 3.4vw, 2.7rem);
-    --t-5xl: clamp(1.5rem, 2.4vw, 2rem);
-    --t-4xl: clamp(1.3rem, 1.9vw, 1.65rem);
-    --t-3xl: 1.3rem;
-    --t-2xl: 1.125rem;
-    --t-xl: 1.0625rem;
+    --mesh-a: radial-gradient(58% 48% at 86% 0%, rgba(247,198,0,.30), transparent 62%);
+    --mesh-b: radial-gradient(52% 44% at 4% 8%, rgba(17,98,191,.16), transparent 60%);
+    --mesh-c: radial-gradient(46% 52% at 50% 106%, rgba(36,108,24,.14), transparent 64%);
+    --mesh-dot: radial-gradient(rgba(24,28,38,.10) 1px, transparent 1px);
+
+    /* -----------------------------------------
+       TIPOGRAFI
+       ----------------------------------------- */
+    --font-display: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    --t-hero: clamp(2.1rem, 6.2vw, 4.6rem);
+    --t-8xl: clamp(2.4rem, 6.4vw, 4.4rem);
+    --t-7xl: clamp(1.9rem, 4.6vw, 3.3rem);
+    --t-6xl: clamp(1.6rem, 3.1vw, 2.5rem);
+    --t-5xl: clamp(1.35rem, 2.2vw, 1.85rem);
+    --t-4xl: clamp(1.15rem, 1.7vw, 1.45rem);
+    --t-3xl: 1.2rem;
+    --t-2xl: 1.0625rem;
+    --t-xl: 1rem;
     --t-body: 1rem;
     --t-sm: .875rem;
     --t-xs: .78125rem;
     --t-2xs: .6875rem;
 
     --lh-tight: 1.02;
-    --lh-snug: 1.2;
-    --lh-body: 1.65;
-    --lh-prose: 1.72;
+    --lh-snug: 1.18;
+    --lh-body: 1.62;
+    --lh-prose: 1.7;
 
-    --tr-display: -.025em;
+    --tr-display: -.032em;
     --tr-kicker: .14em;
-    --tr-caps: .08em;
+    --tr-caps: .07em;
 
     /* -----------------------------------------
-       5. RHYTHM
-     ----------------------------------------- */
+       RITME & BENTUK — radius besar, sudut lembut
+       ----------------------------------------- */
     --sp-1: 4px;
     --sp-2: 8px;
     --sp-3: 12px;
@@ -177,30 +209,28 @@
     --sp-9: 96px;
     --sp-10: 128px;
 
-    --gutter: clamp(18px, 3.6vw, 32px);
-    --section: clamp(64px, 8vw, 116px);
-    --section-tight: clamp(40px, 5vw, 72px);
+    --gutter: clamp(18px, 3.4vw, 32px);
+    --section: clamp(60px, 7.5vw, 108px);
+    --section-tight: clamp(38px, 4.6vw, 64px);
 
-    /* -----------------------------------------
-       6. SHAPE — near-square with an offset
-          print frame, deliberately not soft SaaS radii
-     ----------------------------------------- */
     --r-0: 0px;
-    --r-1: 2px;
-    --r-2: 4px;
-    --r-3: 8px;
+    --r-1: 10px;
+    --r-2: 14px;
+    --r-3: 20px;
+    --r-lg: 24px;
+    --r-xl: 28px;
     --r-pill: 999px;
 
-    --frame: var(--rule);
-    --offset: 6px 6px 0 0 var(--text-strong);
+    --frame: 1px solid var(--line);
+    --offset: 0 0 0 0 transparent;
 
-    --shadow-1: 0 1px 0 rgba(11, 47, 38, .06);
-    --shadow-2: 0 12px 28px -14px rgba(11, 47, 38, .30);
-    --shadow-pop: 0 28px 60px -22px rgba(11, 47, 38, .42);
+    --shadow-1: 0 1px 2px rgba(24,28,38,.05), 0 4px 12px -6px rgba(24,28,38,.10);
+    --shadow-2: var(--glass-shadow);
+    --shadow-pop: 0 40px 90px -40px rgba(24,28,38,.42);
 
     /* -----------------------------------------
-       7. STACKING + LAYOUT
-     ----------------------------------------- */
+       LAPIS & TATA LETAK
+       ----------------------------------------- */
     --z-base: 0;
     --z-sticky: 40;
     --z-nav: 50;
@@ -209,69 +239,96 @@
     --z-dialog: 90;
     --z-boot: 100;
 
-    --nav-h: 72px;
+    --nav-h: 76px;
     --container: 1240px;
     --grid-n: 12;
-    --grid-gap: clamp(16px, 2.2vw, 28px);
+    --grid-gap: clamp(14px, 1.8vw, 22px);
     --measure: 64ch;
 
     /* -----------------------------------------
-       8. MOTION
-     ----------------------------------------- */
-    --t-1: 120ms;
-    --t-2: 220ms;
-    --t-3: 380ms;
-    --t-4: 620ms;
-    --t-5: 900ms;
-    --ease: cubic-bezier(.2, .8, .2, 1);
-    --ease-out: cubic-bezier(.16, 1, .3, 1);
-    --ease-pop: cubic-bezier(.34, 1.5, .64, 1);
+       MOTION
+       ----------------------------------------- */
+    --t-1: 130ms;
+    --t-2: 240ms;
+    --t-3: 420ms;
+    --t-4: 680ms;
+    --t-5: 960ms;
+    --ease: cubic-bezier(.22,.8,.24,1);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+    --ease-pop: cubic-bezier(.34,1.56,.64,1);
     --stagger: 70ms;
     --marquee-dur: 50s;
   }
 
-  /* Pine-shell night. Only tier 2 changes, so no component
-     rule needs a dark-mode branch. */
+  /* Malam hangat: bukan pinus, bukan biru — hitam kecoklatan yang
+     membuat kuning logo justru paling hidup. */
   [data-theme="dark"] {
     color-scheme: dark;
 
-    --bg: #08221E;
-    --surface: #0C2A24;
-    --surface-2: #11332B;
-    --surface-3: #174035;
+    --bg: #0E1014;
+    --surface: #15181F;
+    --surface-2: #1B1F28;
+    --surface-3: #232833;
 
-    --text: #DCE5DE;
-    --text-strong: #F2EDE1;
-    --text-muted: #A6B3AB;
+    --text: #E8E6DE;
+    --text-strong: #FFF9EA;
+    --text-muted: #A2A8B6;
 
-    --line: #1E3F38;
-    --line-strong: #2C554B;
+    --line: #2A2F3A;
+    --line-strong: #3A414F;
 
-    --accent: #3EE2A6;
-    --accent-text: #5CE8B6;
-    --accent-wash: #0F3A2E;
+    --accent: #6FA8FF;
+    --accent-text: #8FBEFF;
+    --accent-wash: #16233A;
 
-    --hot: #E8845B;
-    --hot-strong: #F0A07B;
-    --hot-wash: #3A1F16;
+    --hot: var(--brand-400);
+    --hot-strong: var(--brand-500);
+    --hot-wash: #33290A;
+    --on-hot: #241C00;
 
-    --gold: #F0C46B;
-    --gold-ink: #F0C46B;
-    --gold-wash: #33270F;
+    --gold: #E9B65A;
+    --gold-ink: #E9B65A;
+    --gold-wash: #332711;
 
-    --shell-bg: #061B18;
-    --on-shell: #F2EDE1;
-    --on-shell-muted: #A6B3AB;
-    --on-accent: #06231C;
+    --prog-green: #63C956;
+    --prog-green-wash: #14260F;
+    --prog-blue: #79B0FF;
+    --prog-blue-wash: #0F1E33;
+    --prog-red: #FF8272;
+    --prog-red-wash: #30120E;
 
-    --focus: #3EE2A6;
+    --shell-bg: #080A0D;
+    --on-shell: #FFF9EA;
+    --on-shell-muted: #A8AEBC;
+    --on-accent: #0B0E13;
 
-    --shadow-2: 0 12px 28px -14px rgba(0, 0, 0, .60);
-    --shadow-pop: 0 30px 70px -25px rgba(0, 0, 0, .75);
+    --focus: #6FA8FF;
+
+    --success: #63C956;
+    --warning: #E9B65A;
+    --error: #FF8272;
+    --info: #79B0FF;
 
     --ctx-text: var(--text);
     --ctx-muted: var(--text-muted);
     --ctx-line: var(--line);
+
+    --glass: linear-gradient(158deg, rgba(255,255,255,.075) 0%, rgba(255,255,255,.025) 52%, rgba(255,255,255,.05) 100%);
+    --glass-border: linear-gradient(140deg, rgba(247,198,0,.50) 0%, rgba(255,255,255,.16) 36%, rgba(255,255,255,.06) 62%, rgba(111,168,255,.40) 100%);
+    --glass-shadow: 0 1px 0 rgba(255,255,255,.08) inset,
+      0 2px 8px -2px rgba(0,0,0,.5),
+      0 28px 60px -30px rgba(0,0,0,.9);
+    --glass-shadow-hover: 0 1px 0 rgba(255,255,255,.12) inset,
+      0 36px 74px -30px rgba(0,0,0,1);
+
+    --mesh-a: radial-gradient(58% 48% at 86% 0%, rgba(247,198,0,.16), transparent 64%);
+    --mesh-b: radial-gradient(52% 44% at 4% 8%, rgba(17,98,191,.22), transparent 62%);
+    --mesh-c: radial-gradient(46% 52% at 50% 106%, rgba(36,108,24,.18), transparent 66%);
+    --mesh-dot: radial-gradient(rgba(255,255,255,.10) 1px, transparent 1px);
+
+    --shadow-1: 0 1px 2px rgba(0,0,0,.4);
+    --shadow-2: var(--glass-shadow);
+    --shadow-pop: 0 40px 90px -40px rgba(0,0,0,.9);
   }
 }
 
@@ -3564,6 +3621,549 @@
   }
 }
 
+/* =========================================================
+   LUMINA — lapisan kulit visual
+   Lapisan ini HANYA menyentuh permukaan, gradien, kaca, dan
+   kedalaman 3D. Struktur, spacing, dan kontrak JS tetap di
+   lapisan sebelumnya. Warna diambil dari logo sekolah.
+   ========================================================= */
+@layer lumina {
 
+  body {
+    background-image: var(--mesh-a), var(--mesh-b), var(--mesh-c);
+    background-repeat: no-repeat;
+    background-color: var(--bg);
+  }
 
+  /* ---------- NAV — pil kaca mengambang ---------- */
+  .nav {
+    background: color-mix(in oklab, var(--surface) 74%, transparent);
+    backdrop-filter: blur(20px) saturate(170%);
+    -webkit-backdrop-filter: blur(20px) saturate(170%);
+    border-bottom: 1px solid color-mix(in oklab, var(--line) 60%, transparent);
+   box-shadow: 0 1px 0 rgba(255,255,255,.7) inset;
+  }
 
+  [data-theme="dark"] .nav { box-shadow: 0 1px 0 rgba(255,255,255,.06) inset; }
+
+  .nav.scrolled {
+    box-shadow: 0 1px 0 rgba(255,255,255,.7) inset,
+      0 14px 34px -22px rgba(24, 28, 38, .45);
+  }
+
+  .menu a.active { color: var(--text-strong); }
+  .menu a::after {
+    background: linear-gradient(90deg, var(--brand-500), var(--brand-600));
+    height: 3px;
+    border-radius: var(--r-pill);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    background:
+      var(--mesh-a),
+      radial-gradient(46% 40% at 12% 96%, color-mix(in oklab, var(--blue-500) 12%, transparent), transparent 68%);
+    overflow: visible;
+  }
+
+  .hero h1 { font-weight: 700; letter-spacing: -.038em; }
+
+  /* Gradien teks tetap dalam satu keluarga warna. Mencampur kuning
+     langsung ke biru melewati zaitun yang keruh di tengah, jadi emas
+     pekat -> emas terang, dan biru dipakai sebagai garis bawah. */
+  .hero h1 .grad {
+    background: linear-gradient(102deg, #A87A00 0%, var(--brand-600) 34%, var(--brand-500) 72%, #FFD83D 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    font-style: normal;
+    font-weight: 800;
+    padding-inline-end: .04em;
+  }
+
+  .hero h1 .uline { color: var(--text-strong); }
+
+  .uline > svg { color: var(--brand-500); }
+
+  .hero-badge {
+    background: var(--glass);
+    border: 1px solid transparent;
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(14px) saturate(160%);
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  /* komposisi gambar 3D berlapis — tetap menghormati --px/--py dari JS */
+  .hero-visual { perspective: 1500px; }
+
+  .hero-mosaic {
+    transform-style: preserve-3d;
+    transform: rotateY(-10deg) rotateX(3deg);
+    transition: transform var(--t-4) var(--ease-out);
+  }
+
+  .hero-mosaic img:nth-child(1) {
+    transform: translate3d(calc(var(--px, 0) * 1px), calc(var(--py, 0) * 1px), 64px);
+  }
+
+  .hero-mosaic img:nth-child(2) {
+    transform: translate3d(calc(var(--px, 0) * .6px), calc(var(--py, 0) * .6px), 24px);
+  }
+
+  .hero-mosaic img:nth-child(3) {
+    transform: translate3d(calc(var(--px, 0) * .3px), calc(var(--py, 0) * .3px), 0px);
+  }
+
+  [data-theme="dark"] .hero-mosaic {
+    transform: rotateY(-10deg) rotateX(3deg);
+    filter: brightness(.94);
+  }
+
+  .hero-mosaic img {
+    border-radius: var(--r-lg);
+    border: 1px solid rgba(255, 255, 255, .75);
+    box-shadow: 0 46px 80px -46px rgba(24, 28, 38, .62),
+      0 10px 26px -16px rgba(24, 28, 38, .30);
+    object-fit: cover;
+  }
+
+  [data-theme="dark"] .hero-mosaic img { border-color: rgba(255, 255, 255, .14); }
+
+  .hero-chip,
+  .hero-float {
+    border-radius: var(--r-2);
+    backdrop-filter: blur(18px) saturate(170%);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    border: 1px solid rgba(255, 255, 255, .55);
+    background: color-mix(in oklab, var(--surface) 82%, transparent);
+    box-shadow: 0 22px 48px -22px rgba(24, 28, 38, .45);
+    color: var(--text-strong);
+  }
+
+  [data-theme="dark"] .hero-chip,
+  [data-theme="dark"] .hero-float {
+    border-color: rgba(255, 255, 255, .12);
+    background: color-mix(in oklab, var(--surface) 80%, transparent);
+  }
+
+  .hero-float .num { color: var(--text-strong); }
+  .hero-float small { color: var(--text-muted); }
+
+  /* ---------- TOMBOL gradien ---------- */
+  .btn { border-radius: var(--r-2); font-weight: 700; }
+
+  .btn-sun {
+    background: linear-gradient(118deg, var(--brand-400) 0%, var(--brand-500) 48%, var(--brand-600) 100%);
+    color: var(--on-hot);
+    box-shadow: 0 12px 26px -12px color-mix(in oklab, var(--brand-600) 85%, transparent),
+      0 1px 0 rgba(255, 255, 255, .65) inset;
+  }
+
+  .btn-sun:hover {
+    background: linear-gradient(118deg, var(--brand-400) 0%, var(--brand-500) 40%, var(--brand-600) 100%);
+    box-shadow: 0 20px 40px -14px color-mix(in oklab, var(--brand-600) 90%, transparent),
+      0 1px 0 rgba(255, 255, 255, .7) inset;
+    color: var(--on-hot);
+  }
+
+  .btn-pine {
+    background: linear-gradient(140deg, var(--ink-900) 0%, #000 100%);
+    color: #FFF9EA;
+    box-shadow: 0 12px 26px -14px rgba(18, 22, 30, .85);
+  }
+
+  .btn-pine:hover { background: linear-gradient(140deg, #1C2230 0%, #0A0D12 100%); }
+
+  .btn-ghost {
+    background: var(--glass);
+    border: 1px solid transparent;
+    color: var(--text-strong);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(14px) saturate(150%);
+  }
+
+  .btn-ghost:hover {
+    background: var(--glass);
+    border-color: transparent;
+    box-shadow: var(--glass-shadow-hover);
+  }
+
+  /* ---------- KARTU kaca bergradien ---------- */
+  .jcard,
+  .ncard,
+  .infocard,
+  .xcard,
+  .pcard,
+  .bcell {
+    position: relative;
+    background: var(--glass);
+    border: 1px solid transparent;
+    border-radius: var(--r-3);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+  }
+
+  .jcard::before,
+  .ncard::before,
+  .infocard::before,
+  .xcard::before,
+  .pcard::before,
+  .bcell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--glass-border);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .jcard:hover,
+  .ncard:hover,
+  .infocard:hover,
+  .xcard:hover,
+  .pcard:hover,
+  .bcell:hover {
+    box-shadow: var(--glass-shadow-hover);
+    border-color: transparent;
+  }
+
+  .jcard .ph,
+  .ncard .ph {
+    border-radius: calc(var(--r-3) - 6px);
+    margin: 8px 8px 0;
+  }
+
+  /* Warna rumpun keahlian — data-prog dipasang di beranda dan jurusan,
+     jadi tidak bergantung pada id yang hanya ada di satu halaman. */
+  [data-prog="blue"] { --prog: var(--prog-blue); --prog-wash: var(--prog-blue-wash); }
+  [data-prog="red"] { --prog: var(--prog-red); --prog-wash: var(--prog-red-wash); }
+  [data-prog="green"] { --prog: var(--prog-green); --prog-wash: var(--prog-green-wash); }
+
+  /* Kartu ikut berwarna rumpunnya, bukan hanya lencananya. */
+  .jcard[data-prog] {
+    background:
+      linear-gradient(158deg,
+        color-mix(in oklab, var(--prog-wash) 62%, var(--surface)) 0%,
+        var(--surface) 44%,
+        color-mix(in oklab, var(--prog-wash) 34%, var(--surface)) 100%);
+  }
+
+  [data-theme="dark"] .jcard[data-prog] {
+    background:
+      linear-gradient(158deg,
+        color-mix(in oklab, var(--prog-wash) 78%, var(--surface)) 0%,
+        var(--surface) 46%,
+        color-mix(in oklab, var(--prog-wash) 46%, var(--surface)) 100%);
+  }
+
+  .jcard[data-prog] .no {
+    color: var(--prog);
+    border-color: color-mix(in oklab, var(--prog) 30%, transparent);
+  }
+
+  .jcard { border-top: 0; }
+
+  .jcard .prog {
+    background: var(--prog, var(--hot));
+    color: #fff;
+    border-radius: var(--r-pill);
+    padding: 6px 12px;
+    font-weight: 700;
+  }
+
+  .jcard .no {
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    color: var(--text-strong);
+    border: 1px solid color-mix(in oklab, var(--line) 70%, transparent);
+    backdrop-filter: blur(10px);
+    border-radius: var(--r-1);
+  }
+
+  .jcard .body { padding-top: var(--sp-4); }
+
+  .tag {
+    border-radius: var(--r-pill);
+    background: color-mix(in oklab, var(--prog-wash, var(--surface-2)) 70%, var(--surface));
+    border-color: color-mix(in oklab, var(--prog, var(--line-strong)) 24%, transparent);
+    color: color-mix(in oklab, var(--prog, var(--text-muted)) 88%, var(--text-strong));
+    font-weight: 600;
+  }
+
+  .tag--award {
+    background: var(--gold-wash);
+    border-color: color-mix(in oklab, var(--gold) 45%, transparent);
+    color: var(--gold-ink);
+  }
+
+  .ncard .cat {
+    border-radius: var(--r-pill);
+    background: color-mix(in oklab, var(--ink-900) 78%, transparent);
+    color: #FFF9EA;
+    font-weight: 700;
+    letter-spacing: .06em;
+  }
+
+  .ncard .playbadge {
+    background: linear-gradient(140deg, var(--brand-400), var(--brand-600));
+    color: var(--on-hot);
+    box-shadow: 0 10px 24px -8px rgba(217, 169, 0, .7);
+  }
+
+  .ncard .more,
+  .jcard .link { color: var(--blue-700); font-weight: 700; }
+  [data-theme="dark"] .ncard .more,
+  [data-theme="dark"] .jcard .link { color: var(--accent-text); }
+
+  /* ---------- BENTO ---------- */
+  .bcell.dark {
+    background: linear-gradient(150deg, #171B23 0%, #0B0E13 100%);
+    color: #FFF9EA;
+    border-color: transparent;
+  }
+
+  .bcell.sun {
+    background: linear-gradient(150deg, var(--brand-100) 0%, #FFFDF3 60%, var(--brand-100) 100%);
+    border-color: color-mix(in oklab, var(--brand-500) 30%, transparent);
+  }
+
+  .bcell .big {
+    background: linear-gradient(120deg, var(--brand-600), var(--brand-700));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bcell.dark .big {
+    background: linear-gradient(120deg, #FFE066, var(--brand-500));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bcell .ico {
+    border-radius: var(--r-2);
+    background: linear-gradient(140deg, var(--brand-400), var(--brand-600));
+    color: var(--on-hot);
+    box-shadow: 0 10px 22px -10px rgba(217, 169, 0, .7);
+  }
+
+  /* ---------- STATISTIK ---------- */
+  .stats {
+    border: 1px solid transparent;
+    border-radius: var(--r-lg);
+    background: var(--glass);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(18px) saturate(160%);
+    padding: var(--sp-5) var(--sp-6);
+  }
+
+  .stat { border-inline-start: 1px solid color-mix(in oklab, var(--line) 80%, transparent); }
+  .stat:first-child { border-inline-start: 0; }
+
+  .stat b,
+  .stat .numeral {
+    background: linear-gradient(120deg, var(--brand-700) 0%, var(--brand-600) 55%, var(--blue-700) 120%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -.04em;
+  }
+
+  /* ---------- HEADING & EYEBROW ---------- */
+  .eyebrow {
+    border-radius: var(--r-pill);
+    background: color-mix(in oklab, var(--brand-100) 70%, var(--surface));
+    border-color: color-mix(in oklab, var(--brand-500) 34%, transparent);
+    color: var(--brand-700);
+    font-weight: 800;
+  }
+
+  [data-theme="dark"] .eyebrow {
+    background: color-mix(in oklab, var(--brand-500) 14%, var(--surface));
+    color: var(--brand-400);
+  }
+
+  .eyebrow .dot { background: var(--brand-600); box-shadow: 0 0 10px var(--brand-500); }
+  [data-theme="dark"] .eyebrow .dot { background: var(--brand-400); }
+
+  .section-head h2 em,
+  .welcome em,
+  .cta em { font-style: normal; color: var(--blue-700); }
+  [data-theme="dark"] .section-head h2 em,
+  [data-theme="dark"] .welcome em,
+  [data-theme="dark"] .cta em { color: var(--accent-text); }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    background:
+      radial-gradient(50% 60% at 88% 0%, color-mix(in oklab, var(--brand-500) 30%, transparent), transparent 62%),
+      radial-gradient(46% 50% at 0% 100%, color-mix(in oklab, var(--blue-500) 26%, transparent), transparent 64%),
+      linear-gradient(150deg, #171B23 0%, #0B0E13 100%);
+    border-radius: var(--r-xl);
+    box-shadow: 0 40px 90px -50px rgba(18, 22, 30, .9);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background:
+      radial-gradient(40% 50% at 88% 0%, color-mix(in oklab, var(--brand-500) 12%, transparent), transparent 62%),
+      var(--shell-bg);
+  }
+
+  .socials a {
+    border-radius: var(--r-1);
+    border-color: rgba(255, 249, 234, .16);
+  }
+
+  .socials a:hover {
+    background: linear-gradient(140deg, var(--brand-400), var(--brand-600));
+    border-color: transparent;
+    color: var(--on-hot);
+  }
+
+  /* ---------- TABEL & CHIP ---------- */
+  .tablewrap {
+    border-radius: var(--r-lg);
+    border-color: color-mix(in oklab, var(--line) 70%, transparent);
+    box-shadow: var(--shadow-1);
+  }
+
+  table.data thead th {
+    background: color-mix(in oklab, var(--brand-100) 55%, var(--surface));
+    border-block-end-color: color-mix(in oklab, var(--brand-500) 35%, transparent);
+  }
+
+  [data-theme="dark"] table.data thead th {
+    background: color-mix(in oklab, var(--brand-500) 10%, var(--surface-2));
+  }
+
+  .chip { border-radius: var(--r-pill); }
+  .chip.on {
+    background: linear-gradient(120deg, var(--brand-400), var(--brand-600));
+    border-color: transparent;
+    color: var(--on-hot);
+    box-shadow: 0 8px 18px -8px rgba(217, 169, 0, .6);
+  }
+
+  .searchbox { border-radius: var(--r-pill); box-shadow: var(--shadow-1); }
+
+  .pager button { border-radius: var(--r-1); }
+  .pager button.on {
+    background: linear-gradient(120deg, var(--brand-400), var(--brand-600));
+    border-color: transparent;
+    color: var(--on-hot);
+  }
+
+  /* ---------- FORM ---------- */
+  .form {
+    border-radius: var(--r-lg);
+    background: var(--glass);
+    border-color: transparent;
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(18px) saturate(160%);
+  }
+
+  .form input,
+  .form textarea,
+  .form select { border-radius: var(--r-1); background: var(--surface); }
+
+  .form input:focus,
+  .form textarea:focus,
+  .form select:focus {
+    border-color: var(--brand-600);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand-500) 26%, transparent);
+  }
+
+  /* ---------- OVERLAY ---------- */
+  .lightbox, #videobox, .reader {
+    background: color-mix(in oklab, var(--ink-900) 62%, transparent);
+  }
+
+  .reader .sheet {
+    border-radius: var(--r-xl);
+    margin-block: var(--sp-5);
+    box-shadow: var(--shadow-pop);
+    border: 1px solid color-mix(in oklab, var(--line) 60%, transparent);
+  }
+
+  .x { border-radius: var(--r-pill); }
+
+  /* ---------- BOOT ---------- */
+  .boot {
+    background:
+      var(--mesh-a),
+      var(--mesh-b),
+      linear-gradient(180deg, var(--paper-0) 0%, var(--bg) 100%);
+  }
+
+  .boot-progress-bar {
+    background: linear-gradient(90deg, var(--brand-500), var(--brand-600) 60%, var(--blue-500));
+    border-radius: var(--r-pill);
+  }
+
+  /* ---------- PAGE HEAD ---------- */
+  .phero {
+    background:
+      var(--mesh-a),
+      radial-gradient(40% 50% at 0% 100%, color-mix(in oklab, var(--blue-500) 10%, transparent), transparent 70%),
+      var(--surface);
+  }
+
+  .phero::after {
+    background: linear-gradient(90deg, var(--brand-500) 0%, var(--brand-500) 22%, var(--blue-500) 22%, var(--blue-500) 27%, transparent 27%);
+  }
+
+  .issue { color: var(--brand-700); }
+
+  /* ---------- TARGET SENTUH ----------
+     Di pointer kasar (jari) semua kontrol harus >= 44px. Ticker dan
+     tombol tema adalah pelanggaran terbesar sebelum ini: 23px dan 38px. */
+  @media (pointer: coarse), (max-width: 900px) {
+    .theme-toggle,
+    .burger { inline-size: 44px; block-size: 44px; }
+
+    .ticker-track .tk {
+      min-block-size: 44px;
+      padding-block: 10px;
+    }
+
+    .menu a { min-block-size: 44px; display: flex; align-items: center; }
+    .mobile-menu a { min-block-size: 48px; display: flex; align-items: center; }
+    .chip { min-block-size: 44px; display: inline-flex; align-items: center; }
+    .pager button { min-inline-size: 44px; block-size: 44px; }
+    .socials a { inline-size: 44px; block-size: 44px; }
+    .ncard .more,
+    .jcard .link { min-block-size: 44px; display: inline-flex; align-items: center; }
+
+    /* Judul kartu & tautan footer adalah tautan blok, bukan teks inline
+       di dalam paragraf, jadi beri ruang tap yang layak. */
+    .ncard h3 a,
+    .jcard h3 a { display: inline-block; padding-block: 8px; }
+    .fgrid a { display: inline-flex; align-items: center; min-block-size: 34px; }
+    .breadcrumb a, .crumb a { display: inline-flex; align-items: center; min-block-size: 34px; }
+  }
+
+  /* ---------- MOBILE: matikan blur berat & 3D ---------- */
+  @media (max-width: 900px) {
+    .hero-mosaic { transform: none; }
+    .hero-mosaic img { transform: none !important; }
+    .hero-visual { perspective: none; }
+    .nav { backdrop-filter: blur(14px) saturate(150%); }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .jcard, .ncard, .infocard, .xcard, .pcard, .bcell, .stats, .form, .btn-ghost {
+      backdrop-filter: none;
+      background: var(--surface);
+    }
+  }
+}
