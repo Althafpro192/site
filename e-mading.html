@@ -1,226 +1,157 @@
 <!DOCTYPE html>
 <html lang="id" class="is-loading">
 <head>
-<!-- @GENERATED:BEGIN theme-init — edit site/_build/partials/theme-init.html, lalu: python3 _build/build.py -->
-<script>
-/* Tema dibaca SEBELUM stylesheet agar tidak ada flash (no-FOUC).
-   Default: SELALU terang. State disimpan di localStorage['eskalaber-theme']
-   oleh handler #theme-toggle di main.js. try/catch: mode privat / file://. */
-try {
-  document.documentElement.setAttribute(
-    "data-theme",
-    localStorage.getItem("eskalaber-theme") === "dark" ? "dark" : "light"
-  );
-} catch (e) {}
-</script>
-<!-- @GENERATED:END theme-init -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>E-Mading Eskalaber — SMKN 8 Jember</title>
-<meta name="description" content="Kompilasi majalah dinding digital E-Mading karya siswa SMK Negeri 8 Jember, tersimpan lokal.">
-<meta property="og:title" content="E-Mading Eskalaber — SMKN 8 Jember">
-<meta property="og:description" content="Kompilasi majalah dinding digital E-Mading karya siswa SMK Negeri 8 Jember, tersimpan lokal.">
+<title>E-Mading — SMKN 8 Jember</title>
+<meta name="description" content="Delapan edisi E-Mading digital karya siswa SMKN 8 Jember.">
+<meta property="og:title" content="E-Mading — SMKN 8 Jember">
+<meta property="og:description" content="Delapan edisi E-Mading digital karya siswa SMKN 8 Jember.">
 <meta property="og:image" content="assets/img/logo-SMK3.png">
-<!-- @GENERATED:BEGIN head-tail — edit site/_build/partials/head-tail.html, lalu: python3 _build/build.py -->
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBF7EE">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#08221E">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="id_ID">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="assets/img/logo-SMK3.png">
 <link rel="apple-touch-icon" href="assets/img/logo-SMK3.png">
-<!-- Font di-self-host lewat @font-face di assets/css/style.css
-     (assets/fonts/fraunces-latin.woff2, fraunces-latin-ext.woff2,
-      instrumentsans-latin.woff2, instrumentsans-latin-ext.woff2).
-     Fallback CDN — hapus komentar kalau folder assets/fonts hilang:
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..900&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
--->
+<script>(function(){try{document.documentElement.setAttribute("data-theme",localStorage.getItem("eskalaber-theme")==="dark"?"dark":"light")}catch(e){document.documentElement.setAttribute("data-theme","light")}})();</script>
 <link rel="stylesheet" href="assets/css/style.css">
-<!-- @GENERATED:END head-tail -->
 </head>
-<body>
-<!-- @GENERATED:BEGIN chrome — edit site/_build/partials/chrome.html, lalu: python3 _build/build.py -->
-<a class="skip" href="#main">Lewati ke isi</a>
-<div class="topbar" aria-label="Kontak dan layanan cepat sekolah">
-  <div class="container">
-    <div class="mail">
-      <a href="mailto:smknegeri08jember@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 8 9 6 9-6"/></svg> smknegeri08jember@gmail.com</a>
-      <a href="https://www.instagram.com/smkn8_official/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg> @smkn8_official</a>
-    </div>
-    <div class="links">
-      <a href="e-mading.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg> E-Mading</a>
-      <a href="pengumuman.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/><path d="M14 3v6h6M9 13h6M9 17h6"/></svg> Pengumuman SPMB</a>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeo3ZZPhVlYtjDoZYrcRdsdjeyaBx8Ry7NhCmObqvmuJ-NYtg/viewform?usp=sharing" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21C7 17.5 3 14 3 9.8 3 7 5 5 7.5 5c1.7 0 3.2.9 4.5 2.6C13.3 5.9 14.8 5 16.5 5 19 5 21 7 21 9.8c0 4.2-4 7.7-9 11.2Z"/></svg> Survei Kepuasan</a>
-      <a href="https://app.lapentor.com/sphere/smkn-8-jember" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg> Tur Virtual</a>
-    </div>
-  </div>
-</div>
-<nav class="nav" id="nav" aria-label="Navigasi utama">
-  <div class="container">
-    <a class="brand" href="index.html">
-      <img src="assets/img/logo-SMK3.png" loading="lazy" decoding="async" alt="Logo SMKN 8 Jember" width="75" height="73">
-      <span><b>SMK Negeri 8 Jember</b><span>Bisa &amp; Hebat • Sekolah Agro Industri</span></span>
-    </a>
-    <ul class="menu"><li><a href="index.html">Beranda</a></li><li><a href="profil.html">Profil</a></li><li><a href="jurusan.html">Jurusan</a></li><li><a href="berita.html">Berita</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="ppdb.html">SPMB</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="e-mading.html" class="active" aria-current="page">E-Mading</a></li><li><a href="pengumuman.html">Pengumuman SPMB</a></li></ul>
-    <div class="nav-cta">
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Ganti tema terang atau gelap">
-        <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.2 2.2M16.9 16.9l2.2 2.2M19.1 4.9l-2.2 2.2M7.1 16.9l-2.2 2.2"/></svg>
-        <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5 8.6 8.6 0 1 0 20.5 14.3Z"/></svg>
-      </button>
-      <a class="btn btn-sun btn-sm" href="ppdb.html">SPMB 2026 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <button class="burger" id="burger" type="button" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="mmenu"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
-    </div>
-  </div>
-</nav>
-<div class="mobile-menu" id="mmenu">
-<a href="index.html">Beranda</a><a href="profil.html">Profil</a><a href="jurusan.html">Jurusan</a><a href="berita.html">Berita</a><a href="galeri.html">Galeri</a><a href="kegiatan.html">Kegiatan</a><a href="ppdb.html">SPMB</a><a href="kontak.html">Kontak</a><a href="e-mading.html" class="active" aria-current="page">E-Mading</a><a href="pengumuman.html">Pengumuman SPMB</a>
-  <a class="btn btn-sun drawer-cta" href="ppdb.html">SPMB 2026</a>
-</div>
-<div class="ticker">
-  <div class="container">
-    <span class="ticker-label"><span class="dot" aria-hidden="true"></span> Info Terbaru</span>
-    <div class="ticker-view"><div class="ticker-track" id="ticker-track"></div></div>
-  </div>
-</div>
-<!-- @GENERATED:END chrome -->
-<!-- @GENERATED:BEGIN boot — edit site/_build/partials/boot.html, lalu: python3 _build/build.py -->
+<body class="">
 <div class="boot" id="boot" aria-hidden="true">
-  <div class="boot-stage">
-    <div class="boot-mark">
-      <span class="ring r1" aria-hidden="true"></span>
-      <span class="ring r2" aria-hidden="true"></span>
-      <span class="ring r3" aria-hidden="true"></span>
-      <span class="core" aria-hidden="true"></span>
-    </div>
-    <div class="boot-progress"><div class="boot-progress-bar" id="boot-bar"></div></div>
-    <div class="boot-percent" id="boot-pct">0%</div>
-    <div class="boot-status" id="boot-status" role="status" aria-live="polite">Menyiapkan pengalaman…</div>
+  <div class="boot__inner">
+    <p class="boot__brand">SMKN 8 JEMBER <b>ESKALABER</b></p>
+    <div class="boot__bar"><i id="boot-bar"></i></div>
+    <p class="boot__pct" id="boot-pct">0%</p>
+    <p class="boot__status" id="boot-status">Menyiapkan halaman…</p>
   </div>
-  <div class="boot-brand">SMKN 8 JEMBER &middot; <b>ESKALABER</b></div>
 </div>
-<!-- @GENERATED:END boot -->
+<a class="skip" href="#main">Lewati ke isi</a>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="index.html">
+  <img src="assets/img/logo-SMK3.png" alt="Logo SMK Negeri 8 Jember" width="75" height="73">
+  <span class="brand__name">SMK Negeri 8 Jember</span>
+</a>
+    <nav class="nav" aria-label="Navigasi utama"><a class="nav__link" href="index.html">Beranda</a><a class="nav__link" href="profil.html">Profil</a><a class="nav__link" href="jurusan.html">Jurusan</a><a class="nav__link" href="berita.html">Berita</a><a class="nav__link" href="galeri.html">Galeri</a><a class="nav__link" href="kegiatan.html">Kegiatan</a><a class="nav__link" href="ppdb.html">SPMB</a><a class="nav__link" href="pengumuman.html">Pengumuman</a><a class="nav__link is-active" href="e-mading.html" aria-current="page">E-Mading</a><a class="nav__link" href="kontak.html">Kontak</a></nav>
+    <div class="site-header__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-pressed="false" aria-label="Ganti tema terang atau gelap">
+        <span class="icon-btn__sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.2 2.2M16.9 16.9l2.2 2.2M19.1 4.9l-2.2 2.2M7.1 16.9l-2.2 2.2"/></svg></span>
+        <span class="icon-btn__moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5 8.6 8.6 0 1 0 20.5 14.3Z"/></svg></span>
+      </button>
+      <a class="btn btn--primary btn--sm nav__cta" href="ppdb.html">SPMB 2026 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button class="icon-btn nav__burger" id="burger" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="drawer" id="drawer" hidden>
+    <a class="drawer__link" href="index.html">Beranda</a><a class="drawer__link" href="profil.html">Profil</a><a class="drawer__link" href="jurusan.html">Jurusan</a><a class="drawer__link" href="berita.html">Berita</a><a class="drawer__link" href="galeri.html">Galeri</a><a class="drawer__link" href="kegiatan.html">Kegiatan</a><a class="drawer__link" href="ppdb.html">SPMB</a><a class="drawer__link" href="pengumuman.html">Pengumuman</a><a class="drawer__link is-active" href="e-mading.html" aria-current="page">E-Mading</a><a class="drawer__link" href="kontak.html">Kontak</a>
+    <a class="btn btn--primary drawer__cta" href="ppdb.html">SPMB 2026</a>
+  </div>
+</header>
+<div class="ticker" aria-label="Info terbaru">
+  <div class="container ticker__inner">
+    <span class="ticker__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Info terbaru</span>
+    <div class="ticker__view"><div class="ticker__track" id="ticker-track"></div></div>
+  </div>
+</div>
 <main id="main">
-<header class="phero"><div class="container">
-  <div class="crumb"><a href="index.html">Beranda</a><span aria-hidden="true">/</span><b>E-Mading</b></div>
-  <h1>E-Mading Eskalaber</h1>
-  <p class="lead">Majalah dinding digital karya siswa SMKN 8 Jember — kompilasi edisi tersimpan lokal, dikelola tim jurnalistik &amp; DKV.</p>
-</div></header>
-<section class="section" id="isi"><div class="container">
-  <div class="section-head"><div>
-    <span class="issue">Kompilasi Edisi</span>
-    <h2 class="h2">Baca mading digital <em>Eskalaber</em></h2>
-    <p class="lead">Klik halaman untuk membaca layar penuh. Edisi terbaru juga dipublikasikan melalui Instagram @smkn8_official.</p>
-  </div>
-  <a class="btn btn-ghost" href="https://drive.google.com/drive/folders/1kuT8IvQnE2DNslalEYb0h8GrYHeN9GdA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/><path d="M14 3v6h6M9 13h6M9 17h6"/></svg> Arsip drive lengkap</a></div>
-  <div class="masonry">
-    <a href="assets/img/Capture-1.webp" data-doc="assets/img/Capture-1.webp" data-cap="E-Mading Eskalaber edisi 1"><img loading="lazy" src="assets/img/Capture-1.webp" width="590" height="546" decoding="async" alt="E-Mading edisi 1"><span class="page-no" aria-hidden="true">01</span><span class="cap">Edisi 1 · klik untuk memperbesar</span></a>
-    <a href="assets/img/Capture-2.webp" data-doc="assets/img/Capture-2.webp" data-cap="E-Mading Eskalaber edisi 2"><img loading="lazy" src="assets/img/Capture-2.webp" width="572" height="546" decoding="async" alt="E-Mading edisi 2"><span class="page-no" aria-hidden="true">02</span><span class="cap">Edisi 2 · klik untuk memperbesar</span></a>
-    <a href="assets/img/Capture-3.webp" data-doc="assets/img/Capture-3.webp" data-cap="E-Mading Eskalaber edisi 3"><img loading="lazy" src="assets/img/Capture-3.webp" width="590" height="480" decoding="async" alt="E-Mading edisi 3"><span class="page-no" aria-hidden="true">03</span><span class="cap">Edisi 3 · klik untuk memperbesar</span></a>
-    <a href="assets/img/Capture-4.webp" data-doc="assets/img/Capture-4.webp" data-cap="E-Mading Eskalaber edisi 4"><img loading="lazy" src="assets/img/Capture-4.webp" width="605" height="493" decoding="async" alt="E-Mading edisi 4"><span class="page-no" aria-hidden="true">04</span><span class="cap">Edisi 4 · klik untuk memperbesar</span></a>
-    <a href="assets/img/Capture-5.webp" data-doc="assets/img/Capture-5.webp" data-cap="E-Mading Eskalaber edisi 5"><img loading="lazy" src="assets/img/Capture-5.webp" width="587" height="472" decoding="async" alt="E-Mading edisi 5"><span class="page-no" aria-hidden="true">05</span><span class="cap">Edisi 5 · klik untuk memperbesar</span></a>
-    <a href="assets/img/Capture-6.webp" data-doc="assets/img/Capture-6.webp" data-cap="E-Mading Eskalaber edisi 6"><img loading="lazy" src="assets/img/Capture-6.webp" width="622" height="479" decoding="async" alt="E-Mading edisi 6"><span class="page-no" aria-hidden="true">06</span><span class="cap">Edisi 6 · klik untuk memperbesar</span></a>
-    <a href="assets/img/Capture-7.webp" data-doc="assets/img/Capture-7.webp" data-cap="E-Mading Eskalaber edisi 7"><img loading="lazy" src="assets/img/Capture-7.webp" width="589" height="459" decoding="async" alt="E-Mading edisi 7"><span class="page-no" aria-hidden="true">07</span><span class="cap">Edisi 7 · klik untuk memperbesar</span></a>
-    <a href="assets/img/Screenshot-2024-11-08-102608.webp" data-doc="assets/img/Screenshot-2024-11-08-102608.webp" data-cap="Peluncuran E-Mading SMKN 8 Jember"><img loading="lazy" src="assets/img/Screenshot-2024-11-08-102608.webp" width="480" height="681" decoding="async" alt="Peluncuran E-Mading"><span class="cap">Peluncuran E-Mading · klik untuk memperbesar</span></a>
-  </div>
+<header class="page-head"><div class="container">
+  <nav class="crumb" aria-label="Remah"><a href="index.html">Beranda</a><span>/</span><strong>E-Mading</strong></nav>
+  <h1 class="page-head__title">E-Mading Eskalaber</h1>
+  <p class="lead">Majalah dinding digital karya tim jurnalistik dan DKV siswa — delapan edisi, dibaca layar penuh.</p>
+</div></header><section class="section--tight"><div class="container">
+  <div class="section-head">
+  <div class="section-head__copy"><p class="eyebrow"><span class="eyebrow__dot"></span>Arsip</p><h2 class="h2">Delapan edisi</h2><p class="lead">Klik edisi untuk membaca layar penuh.</p></div>
+  <div class="section-head__action"><a class="btn btn--ghost" href="https://drive.google.com/drive/folders/1kuT8IvQnE2DNslalEYb0h8GrYHeN9GdA" target="_blank" rel="noopener">Arsip Drive lengkap</a></div>
+</div>
+  <div class="docs"><a class="tile" href="assets/img/Capture-1.webp" data-doc data-cap="E-Mading edisi 1">
+  <img src="assets/img/Capture-1.webp" alt="E-Mading edisi 1" loading="lazy" decoding="async">
+  <span class="doc-no">01</span><span class="tile__cap">Edisi 1</span>
+</a><a class="tile" href="assets/img/Capture-2.webp" data-doc data-cap="E-Mading edisi 2">
+  <img src="assets/img/Capture-2.webp" alt="E-Mading edisi 2" loading="lazy" decoding="async">
+  <span class="doc-no">02</span><span class="tile__cap">Edisi 2</span>
+</a><a class="tile" href="assets/img/Capture-3.webp" data-doc data-cap="E-Mading edisi 3">
+  <img src="assets/img/Capture-3.webp" alt="E-Mading edisi 3" loading="lazy" decoding="async">
+  <span class="doc-no">03</span><span class="tile__cap">Edisi 3</span>
+</a><a class="tile" href="assets/img/Capture-4.webp" data-doc data-cap="E-Mading edisi 4">
+  <img src="assets/img/Capture-4.webp" alt="E-Mading edisi 4" loading="lazy" decoding="async">
+  <span class="doc-no">04</span><span class="tile__cap">Edisi 4</span>
+</a><a class="tile" href="assets/img/Capture-5.webp" data-doc data-cap="E-Mading edisi 5">
+  <img src="assets/img/Capture-5.webp" alt="E-Mading edisi 5" loading="lazy" decoding="async">
+  <span class="doc-no">05</span><span class="tile__cap">Edisi 5</span>
+</a><a class="tile" href="assets/img/Capture-6.webp" data-doc data-cap="E-Mading edisi 6">
+  <img src="assets/img/Capture-6.webp" alt="E-Mading edisi 6" loading="lazy" decoding="async">
+  <span class="doc-no">06</span><span class="tile__cap">Edisi 6</span>
+</a><a class="tile" href="assets/img/Capture-7.webp" data-doc data-cap="E-Mading edisi 7">
+  <img src="assets/img/Capture-7.webp" alt="E-Mading edisi 7" loading="lazy" decoding="async">
+  <span class="doc-no">07</span><span class="tile__cap">Edisi 7</span>
+</a><a class="tile" href="assets/img/Screenshot-2024-11-08-102608.webp" data-doc data-cap="E-Mading edisi 8">
+  <img src="assets/img/Screenshot-2024-11-08-102608.webp" alt="E-Mading edisi 8" loading="lazy" decoding="async">
+  <span class="doc-no">08</span><span class="tile__cap">Edisi 8</span>
+</a></div>
 </div></section>
-
-<section class="section-tight"><div class="container">
-  <div class="cta reveal">
-    <div><h2>Punya karya tulis, foto, atau desain?</h2><p>Bergabunglah dengan ekstrakurikuler jurnalistik atau DKV dan terbitkan karyamu di E-Mading Eskalaber.</p>
-    <div class="actions"><a class="btn btn-sun" href="kegiatan.html">Lihat ekstrakurikuler <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
-    <div class="side"><a href="https://www.instagram.com/smkn8_official/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg> @smkn8_official</a><a href="berita.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19V5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h14"/><path d="M9 7h7"/></svg> Berita sekolah</a></div>
-  </div>
+<section class="section--tight"><div class="container">
+  <div class="cta"><div><h2 class="cta__title">Punya karya tulis, foto, atau desain?</h2>
+  <p class="cta__text">Bergabung dengan ekstrakurikuler jurnalistik atau DKV dan terbitkan karyamu di E-Mading.</p></div>
+  <div class="cta__actions"><a class="btn btn--primary" href="kegiatan.html">Lihat ekstrakurikuler <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
 </div></section>
-
 </main>
-<!-- @GENERATED:BEGIN footer — edit site/_build/partials/footer.html, lalu: python3 _build/build.py -->
-<footer>
+<footer class="site-footer">
   <div class="container">
-    <div class="fgrid">
-      <div>
-        <div class="fbrand"><img src="assets/img/logo-SMK3.png" loading="lazy" decoding="async" alt="Logo" width="75" height="73"><span class="name"><b>SMK Negeri 8 Jember</b><small>Eskalaber • Bisa &amp; Hebat</small></span></div>
-        <p>Sekolah Menengah Kejuruan negeri di Kecamatan Semboro, Kabupaten Jember. Berdiri sejak 2008 dengan 7 konsentrasi keahlian: siap kerja, siap wirausaha, siap kuliah.</p>
-        <div class="socials">
-          <a href="https://www.instagram.com/smkn8_official/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></a>
-          <a href="https://youtu.be/clMb3qcuWjQ" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M23 12s0-3.9-.5-5.6c-.3-1-1.1-1.8-2.1-2C18.6 4 12 4 12 4s-6.6 0-8.4.4c-1 .3-1.8 1-2.1 2C1 8.1 1 12 1 12s0 3.9.5 5.6c.3 1 1.1 1.8 2.1 2 1.8.4 8.4.4 8.4.4s6.6 0 8.4-.4c-1-.3 1.8-1 2.1-2 .5-1.7.5-5.6.5-5.6Z"/><path d="M9.8 15.5V8.5l6 3.5-6 3.5Z" fill="var(--pine-900)"/></svg></a>
-          <a href="mailto:smknegeri08jember@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 8 9 6 9-6"/></svg></a>
-          <a href="https://app.lapentor.com/sphere/smkn-8-jember" target="_blank" rel="noopener" aria-label="Tur virtual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg></a>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="assets/img/logo-SMK3.png" alt="" width="75" height="73">
+        <p class="footer__name">SMK Negeri 8 Jember</p>
+        <p class="footer__meta">Sekolah Agro Industri · Semboro, Jember</p>
+        <p class="footer__addr">Jl. Pelita No. 27, Sidomekar, Semboro, Jember, Jawa Timur 68157</p>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/smkn8_official/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://youtu.be/clMb3qcuWjQ" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 12s0-3.3-.4-4.9a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.3a2.6 2.6 0 0 0-1.8 1.8C2 8.7 2 12 2 12s0 3.3.4 4.9a2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.3a2.6 2.6 0 0 0 1.8-1.8C22 15.3 22 12 22 12Z"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="mailto:smknegeri08jember@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 8 9 6 9-6"/></svg></a>
         </div>
       </div>
+      <div><h2 class="footer__h">Navigasi</h2><ul class="footer__links"><li><a href="index.html">Beranda</a></li><li><a href="profil.html">Profil</a></li><li><a href="jurusan.html">Jurusan</a></li><li><a href="berita.html">Berita</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="ppdb.html">SPMB</a></li><li><a href="pengumuman.html">Pengumuman</a></li><li><a href="e-mading.html">E-Mading</a></li><li><a href="kontak.html">Kontak</a></li></ul></div>
+      <div><h2 class="footer__h">Konsentrasi</h2><ul class="footer__links"><li><a href="jurusan.html#dkv">Desain Komunikasi Visual</a></li><li><a href="jurusan.html#rpl">Rekayasa Perangkat Lunak</a></li><li><a href="jurusan.html#tkj">Teknik Komputer & Jaringan</a></li><li><a href="jurusan.html#tkr">Teknik Kendaraan Ringan</a></li><li><a href="jurusan.html#tsm">Teknik Sepeda Motor</a></li><li><a href="jurusan.html#atph">Agribisnis Tanaman Pangan & Hortikultura</a></li><li><a href="jurusan.html#apt">Agribisnis Perbenihan Tanaman</a></li></ul></div>
       <div>
-        <h2 class="sr-only" id="f-navigasi">Navigasi situs</h2>
-        <h3>Navigasi</h3>
-        <nav aria-labelledby="f-navigasi">
-<ul><li><a href="index.html">Beranda</a></li><li><a href="profil.html">Profil</a></li><li><a href="jurusan.html">Jurusan</a></li><li><a href="berita.html">Berita</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="kegiatan.html">Kegiatan</a></li><li><a href="ppdb.html">SPMB</a></li><li><a href="kontak.html">Kontak</a></li><li><a href="e-mading.html">E-Mading</a></li><li><a href="pengumuman.html">Pengumuman SPMB</a></li></ul>
-        </nav>
-      </div>
-      <div>
-        <h2 class="sr-only" id="f-konsentrasi">Daftar konsentrasi keahlian</h2>
-        <h3>Konsentrasi Keahlian</h3>
-        <nav aria-labelledby="f-konsentrasi">
-          <ul>
-            <li><a href="jurusan.html#dkv">Desain Komunikasi Visual</a></li>
-            <li><a href="jurusan.html#rpl">Rekayasa Perangkat Lunak</a></li>
-            <li><a href="jurusan.html#tkj">Teknik Komputer &amp; Jaringan</a></li>
-            <li><a href="jurusan.html#tkr">Teknik Kendaraan Ringan</a></li>
-            <li><a href="jurusan.html#tsm">Teknik Sepeda Motor</a></li>
-            <li><a href="jurusan.html#atph">Agribisnis Tanaman Pangan &amp; Hortikultura</a></li>
-            <li><a href="jurusan.html#apt">Agribisnis Perbenihan Tanaman</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div>
-        <h2 class="sr-only" id="f-kontak">Kontak dan layanan sekolah</h2>
-        <h3>Kontak &amp; Layanan</h3>
-        <nav aria-labelledby="f-kontak">
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg> Jl. Pelita No. 27, Sidomekar, Semboro, Jember, Jawa Timur 68157</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Telp/Fax kantor: 0336-444112</li>
-            <li><a href="mailto:smknegeri08jember@gmail.com">smknegeri08jember@gmail.com</a></li>
-            <li><a href="mailto:lspp1.smkn8jember@gmail.com">lspp1.smkn8jember@gmail.com (LSP P-1)</a></li>
-            <li><a href="kontak.html#survei">Survei Kepuasan Pelanggan</a></li>
-            <li><a href="e-mading.html">E-Mading Eskalaber</a></li>
-          </ul>
-        </nav>
+        <h2 class="footer__h">Kontak</h2>
+        <ul class="footer__links">
+          <li><a href="mailto:smknegeri08jember@gmail.com">smknegeri08jember@gmail.com</a></li>
+          <li><a href="tel:0336444112">0336-444112</a></li>
+          <li><a href="mailto:lspp1.smkn8jember@gmail.com">LSP P-1: lspp1.smkn8jember@gmail.com</a></li>
+          <li><a href="https://app.lapentor.com/sphere/smkn-8-jember" target="_blank" rel="noopener">Tur virtual 360°</a></li>
+        </ul>
       </div>
     </div>
-    <div class="fbottom">
-      <span>© 2026 <b>SMK Negeri 8 Jember</b>. Seluruh konten &amp; dokumentasi milik sekolah.</span>
-      <span>Website resmi mandiri — seluruh foto, video &amp; artikel tersimpan lokal</span>
+    <div class="footer__bottom">
+      <span>© 2008–2026 SMK Negeri 8 Jember. Seluruh konten tersimpan lokal.</span>
+      <span>Bisa &amp; Hebat · SMK Pusat Keunggulan · BLUD</span>
     </div>
   </div>
 </footer>
-<!-- @GENERATED:END footer -->
-
-<!-- @GENERATED:BEGIN overlays — edit site/_build/partials/overlays.html, lalu: python3 _build/build.py -->
-<button class="totop" id="totop" type="button" aria-label="Kembali ke atas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" tabindex="-1" aria-label="Pratinjau foto">
-  <button class="x" type="button" aria-label="Tutup">✕</button>
-  <figure><img id="lb-img" src="" alt=""><figcaption class="cap" id="lb-cap"></figcaption></figure>
+<button class="totop" id="totop" type="button" aria-label="Kembali ke atas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+<div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-label="Pratinjau foto" tabindex="-1">
+  <button class="modal__close" type="button" aria-label="Tutup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <figure class="modal__figure"><img id="lb-img" src="" alt=""><figcaption id="lb-cap"></figcaption></figure>
 </div>
-<div class="lightbox" id="videobox" role="dialog" aria-modal="true" tabindex="-1" aria-label="Pemutar video">
-  <button class="x" type="button" aria-label="Tutup">✕</button>
-  <figure><div class="vwrap" id="vb-wrap"></div><figcaption class="cap" id="vb-cap"></figcaption></figure>
+<div class="modal" id="videobox" role="dialog" aria-modal="true" aria-label="Pemutar video" tabindex="-1">
+  <button class="modal__close" type="button" aria-label="Tutup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="modal__video" id="vb-wrap"></div>
+  <p class="modal__cap" id="vb-cap"></p>
 </div>
-<div class="reader" id="reader" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="r-title">
-  <div class="bg"></div>
-  <div class="sheet">
-    <button class="x" id="r-close" type="button" aria-label="Tutup artikel">✕</button>
-    <img class="heroimg" id="r-img" src="" alt="">
-    <div class="inner">
-      <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Eskalaber News</span>
-      <h2 id="r-title"></h2>
-      <div class="meta" id="r-meta"></div>
-      <div class="content" id="r-body"></div>
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-labelledby="r-title" tabindex="-1">
+  <div class="reader__scrim"></div>
+  <article class="reader__sheet">
+    <button class="modal__close" id="r-close" type="button" aria-label="Tutup artikel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <img class="reader__hero" id="r-img" src="" alt="">
+    <div class="reader__inner">
+      <p class="eyebrow" id="r-kicker">Eskalaber News</p>
+      <h2 class="reader__title" id="r-title"></h2>
+      <div class="reader__meta" id="r-meta"></div>
+      <div class="prose" id="r-body"></div>
     </div>
-  </div>
+  </article>
 </div>
-<!-- @GENERATED:END overlays -->
-<!-- @GENERATED:BEGIN scripts — edit site/_build/partials/scripts.html, lalu: python3 _build/build.py -->
 <script defer src="assets/js/data.js"></script>
 <script defer src="assets/js/main.js"></script>
-<!-- @GENERATED:END scripts -->
 </body>
 </html>
