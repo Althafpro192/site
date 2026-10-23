@@ -1937,9 +1937,12 @@
     border-radius: var(--r-1);
   }
 
-  .jcard > div:last-child,
-  .jcard .cbody { padding: var(--sp-6); display: grid; gap: var(--sp-3); }
-  .jcard > div { padding: var(--sp-6); }
+  .jcard .body {
+    display: grid;
+    gap: var(--sp-3);
+    align-content: start;
+    padding: var(--sp-6);
+  }
 
   .jcard h3 {
     font-size: var(--t-4xl);
