@@ -229,8 +229,9 @@ a:focus:not(:focus-visible) {
 /* -----------------------------------------
    3. PRELOADER
    ----------------------------------------- */
-html.is-loading,
-html.is-loading body {
+/* Gated on .js: if the script never runs, the page must still scroll. */
+html.js.is-loading,
+html.js.is-loading body {
   overflow: hidden;
   height: 100%;
 }
@@ -3485,6 +3486,16 @@ footer .container {
   .reveal-3d {
     opacity: 1;
     transform: none;
+  }
+
+  /* Reduced-motion users are never locked out by the intro screen. */
+  .boot {
+    display: none !important;
+  }
+
+  html.js.is-loading,
+  html.js.is-loading body {
+    overflow: visible;
   }
 }
 

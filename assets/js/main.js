@@ -33,6 +33,45 @@
     return `<div class="ytblock" data-yt="${id}"><img loading="lazy" src="${thumb}" alt="Sampul video YouTube"><span class="play">${PLAY}</span><span class="ytlabel">YouTube · klik untuk putar</span></div>`;
   };
 
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- boot / preloader ---------- */
+  (function boot() {
+    const root = document.documentElement;
+    const el = $('#boot'), bar = $('#boot-bar'), pct = $('#boot-pct'), st = $('#boot-status');
+    let done = false;
+    const release = () => {
+      if (done) return;
+      done = true;
+      root.classList.remove('is-loading');
+      if (!el) return;
+      el.classList.add('done');
+      setTimeout(() => el.remove(), 700);
+    };
+    /* The stylesheet only locks scroll for html.js.is-loading, so adding .js
+       here is the switch: if this script fails to parse, the page still scrolls. */
+    root.classList.add('js');
+    let revisited = null;
+    try { revisited = sessionStorage.getItem('eskalaber-boot'); sessionStorage.setItem('eskalaber-boot', '1'); } catch (e) {}
+    if (!el || RM || revisited) return release();
+
+    let p = 0;
+    const to = (v, msg) => {
+      p = Math.max(p, v);
+      if (bar) bar.style.width = p + '%';
+      if (pct) pct.textContent = Math.round(p) + '%';
+      if (msg && st) st.textContent = msg;
+    };
+    to(12, 'Memuat konten…');
+    if (document.fonts) document.fonts.ready.then(() => to(70));
+    addEventListener('load', () => to(100), { once: true });
+    ['click', 'keydown', 'touchstart'].forEach((ev) =>
+      addEventListener(ev, () => to(100), { once: true, passive: true }));
+    /* Ceiling: the site is never hostage to a decorative screen. */
+    setTimeout(() => to(100), 1200);
+    const t = setInterval(() => { if (p >= 100) { clearInterval(t); release(); } }, 80);
+  })();
+
   /* ---------- navbar ---------- */
   const nav = $("#nav");
   const onScroll = () => {
