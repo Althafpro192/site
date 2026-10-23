@@ -3032,6 +3032,12 @@
     border-color: var(--bone);
   }
 
+  /* The YouTube glyph carries a knock-out path hardcoded to the retired
+     #0A3B2E. It has to read as whatever sits behind it, including on hover,
+     where the tile inverts to bone. */
+  .socials a[href*="youtu"] path[fill]:not([fill="none"]) { fill: var(--pine-900); }
+  .socials a[href*="youtu"]:hover path[fill]:not([fill="none"]) { fill: var(--bone); }
+
   .fbottom {
     display: flex;
     align-items: center;
