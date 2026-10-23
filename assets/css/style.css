@@ -1401,6 +1401,7 @@
   }
 
   .boot-brand {
+    order: -1;
     font-family: var(--font-display);
     font-size: var(--t-2xl);
     font-weight: 600;
