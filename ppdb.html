@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<a class="skip" href="#main">Lewati ke isi</a>
 <div class="boot" id="boot" aria-hidden="true">
     <div class="boot-stage">
       <div class="boot-mark">
@@ -49,11 +50,12 @@
 <nav class="nav" id="nav">
   <div class="container">
     <a class="brand" href="index.html">
-      <img src="assets/img/logo-SMK3.png" alt="Logo SMKN 8 Jember">
+      <img src="assets/img/logo-SMK3.png" width="75" height="73" loading="lazy" decoding="async" alt="Logo SMKN 8 Jember">
       <span style="min-width:0"><b>SMK Negeri 8 Jember</b><span>Bisa &amp; Hebat • Sekolah Agro Industri</span></span>
     </a>
     <ul class="menu"><li><a href="index.html" class="">Beranda</a></li><li><a href="profil.html" class="">Profil</a></li><li><a href="jurusan.html" class="">Jurusan</a></li><li><a href="berita.html" class="">Berita</a></li><li><a href="galeri.html" class="">Galeri</a></li><li><a href="kegiatan.html" class="">Kegiatan</a></li><li><a href="ppdb.html" class="active">PPDB</a></li><li><a href="kontak.html" class="">Kontak</a></li></ul>
     <div class="nav-cta">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Ganti tema terang atau gelap"><svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.2 2.2 M16.9 16.9l2.2 2.2M19.1 4.9l-2.2 2.2M7.1 16.9l-2.2 2.2"/></svg><svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5 8.6 8.6 0 1 0 20.5 14.3Z"/></svg></button>
       <a class="btn btn-sun btn-sm" href="ppdb.html">SPMB 2026 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -67,20 +69,21 @@
 <div class="ticker"><div class="container">
   <span class="ticker-label"><span class="dot"></span> Info Terbaru</span>
   <div class="ticker-view"><div class="ticker-track" id="ticker-track"></div></div>
+<main id="main">
 </div></div>
 
 <header class="phero"><div class="container">
-  <div class="crumb"><a href="index.html">Beranda</a> / <span>PPDB</span></div>
+  <div class="crumb"><a href="index.html">Beranda</a><span aria-hidden="true">/</span><b>SPMB</b></div>
   <h1>SPMB 2026 — Penerimaan Murid Baru</h1>
   <p class="lead">Kuota 16 rombel × 36 murid pada 7 konsentrasi keahlian. Simak jalur, tahapan, dan pengumuman hasilnya — semua tersimpan di situs ini.</p>
 </div></header>
-<section class="section"><div class="container">
+<section class="section" id="isi"><div class="container">
   <div class="split">
-    <div class="reveal" id="kuota" style="scroll-margin-top:120px">
+    <div class="reveal stack" id="kuota">
       <span class="eyebrow"><span class="dot"></span> Kuota 2026</span>
-      <h2 class="h2" style="margin:16px 0 18px">576 kursi murid baru</h2>
+      <h2 class="h2">576 kursi murid baru</h2>
       <p class="lead">Jumlah murid per kelas/rombel adalah 36 murid, tersebar pada tujuh konsentrasi keahlian berikut.</p>
-      <div class="tablewrap" style="margin-top:22px">
+      <div class="tablewrap">
         <table class="data"><thead><tr><th>Konsentrasi Keahlian</th><th>Rombel</th><th>Kuota</th></tr></thead>
         <tbody>
           <tr><td>Teknik Kendaraan Ringan</td><td>3</td><td>108</td></tr>
@@ -95,43 +98,54 @@
       </div>
     </div>
     <div class="reveal">
-      <div class="orgimg"><img loading="lazy" src="assets/img/Putih-Hijau-Sederhana-Dokumentasi-Kegiatan-Belajar-Mengajar-_648c5da2.webp" alt="Infografis kuota SPMB 2026"></div>
+      <div class="orgimg"><img loading="lazy" src="assets/img/Putih-Hijau-Sederhana-Dokumentasi-Kegiatan-Belajar-Mengajar-_648c5da2.webp" width="1400" height="1400" decoding="async" alt="Infografis kuota SPMB 2026"></div>
     </div>
   </div>
 
-  <div class="split" style="margin-top:64px">
-    <div class="reveal">
+  </div>
+</div></section>
+
+<section class="section-tight"><div class="container">
+  <div class="split">
+    <div class="reveal stack">
       <span class="eyebrow"><span class="dot"></span> Tahapan</span>
-      <h2 class="h2" style="margin:16px 0 8px">Alur pendaftaran</h2>
-      <div class="timeline" style="margin-top:24px">
+      <h2 class="h2">Alur pendaftaran</h2>
+      <div class="timeline">
         <div class="titem"><b class="yr">Tahap 1</b><h4>Pendaftaran</h4><p>Melalui portal SPMB Jawa Timur / panitia sekolah dengan melengkapi berkas rapor, kartu keluarga, dan dokumen pendukung.</p></div>
         <div class="titem"><b class="yr">Tahap 2</b><h4>Seleksi jalur</h4><p>Jalur afirmasi (termasuk prioritas terdekat), jalur nilai rapor + TKA, serta jalur prestasi akademik &amp; non-akademik.</p></div>
-        <div class="titem"><b class="yr">Tahap 3</b><h4>Pengumuman</h4><p>Hasil tiap jalur dipublikasikan resmi — dokumen pengumuman tersimpan di <a href="pengumuman.html" style="color:var(--leaf);font-weight:700">halaman Pengumuman</a>.</p></div>
+        <div class="titem"><b class="yr">Tahap 3</b><h4>Pengumuman</h4><p>Hasil tiap jalur dipublikasikan resmi — dokumen pengumuman tersimpan di <a class="link-accent" href="pengumuman.html">halaman Pengumuman</a>.</p></div>
         <div class="titem"><b class="yr">Tahap 4</b><h4>Daftar ulang &amp; MPLS</h4><p>Calon murid yang diterima melakukan daftar ulang lalu mengikuti Masa Pengenalan Lingkungan Sekolah.</p></div>
       </div>
     </div>
-    <div class="reveal">
+    <div class="reveal stack">
       <span class="eyebrow"><span class="dot"></span> Dokumen resmi</span>
-      <h2 class="h2" style="margin:16px 0 18px">Pengumuman &amp; survei</h2>
-      <div style="display:grid;gap:12px">
-        <a class="infocard" style="transition:.2s" href="pengumuman.html#afirmasi"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4a2 2 0 0 0 2 4h1M17 6h3a2 2 0 0 1-2 4h-1"/></svg></div><div><b>Hasil SPMB jalur afirmasi</b><p>Dokumen 7 halaman tersimpan lokal</p></div></a>
-        <a class="infocard" style="transition:.2s" href="pengumuman.html#rapor"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v5"/></svg></div><div><b>Hasil SPMB jalur nilai rapor + TKA</b><p>Dokumen 13 halaman tersimpan lokal</p></div></a>
-        <a class="infocard" style="transition:.2s" href="kontak.html#survei"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21C7 17.5 3 14 3 9.8 3 7 5 5 7.5 5c1.7 0 3.2.9 4.5 2.6C13.3 5.9 14.8 5 16.5 5 19 5 21 7 21 9.8c0 4.2-4 7.7-9 11.2Z"/></svg></div><div><b>Survei kepuasan pelanggan</b><p>Form siswa, orang tua, DuDi, dan internal GTK</p></div></a>
-        <a class="infocard" style="transition:.2s" href="kontak.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 8 9 6 9-6"/></svg></div><div><b>Panitia PPDB</b><p>smknegeri08jember@gmail.com · 0336-444112</p></div></a>
+      <h2 class="h2">Pengumuman &amp; survei</h2>
+      <div class="stack--tight">
+        <a class="infocard" href="pengumuman.html#afirmasi"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4a2 2 0 0 0 2 4h1M17 6h3a2 2 0 0 1-2 4h-1"/></svg></div><div><h3>Hasil SPMB jalur afirmasi</h3><p>Dokumen 7 halaman tersimpan lokal</p></div></a>
+        <a class="infocard" href="pengumuman.html#rapor"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v5"/></svg></div><div><h3>Hasil SPMB jalur nilai rapor + TKA</h3><p>Dokumen 13 halaman tersimpan lokal</p></div></a>
+        <a class="infocard" href="kontak.html#survei"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21C7 17.5 3 14 3 9.8 3 7 5 5 7.5 5c1.7 0 3.2.9 4.5 2.6C13.3 5.9 14.8 5 16.5 5 19 5 21 7 21 9.8c0 4.2-4 7.7-9 11.2Z"/></svg></div><div><h3>Survei kepuasan pelanggan</h3><p>Form siswa, orang tua, DuDi, dan internal GTK</p></div></a>
+        <a class="infocard" href="kontak.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 8 9 6 9-6"/></svg></div><div><h3>Panitia PPDB</h3><p>smknegeri08jember@gmail.com · 0336-444112</p></div></a>
       </div>
-      <div class="acc" style="margin-top:26px"><button>Apakah SMKN 8 Jember negeri &amp; bebas biaya? <span class="pm">+</span></button><div class="pane"><div>Ya — SMKN 8 Jember adalah sekolah negeri (BLUD) sehingga mengikuti ketentuan biaya pendidikan sekolah negeri yang berlaku.</div></div></div>
-      <div class="acc"><button>Jurusan apa yang paling banyak peminatnya? <span class="pm">+</span></button><div class="pane"><div>Seluruh jurusan memiliki peminat tersendiri; otomotif (TKR &amp; TSM) membuka rombel terbanyak (masing-masing 3), sementara jurusan komputer &amp; pertanian terus tumbuh berkat kemitraan industri.</div></div></div>
-      <div class="acc"><button>Apakah ada kesempatan beasiswa &amp; kuliah? <span class="pm">+</span></button><div class="pane"><div>Sangat ada: setiap tahun 20+ lulusan lolos SNBP/SNBT, serta program beasiswa Smart Scholarship YBM BRILiaN, Chinese Government Scholarship, Petani Muda, hingga kuliah ke Taiwan dan Malaysia.</div></div></div>
-      <div class="acc"><button>Bagaimana menghubungi panitia PPDB? <span class="pm">+</span></button><div class="pane"><div>Melalui halaman <a href="kontak.html" style="color:var(--leaf);font-weight:700">Kontak</a>, email smknegeri08jember@gmail.com, telepon 0336-444112, atau DM Instagram @smkn8_official.</div></div></div>
+      </div>
     </div>
   </div>
 </div></section>
 
+<section class="section"><div class="container">
+      <div class="acc"><button>Apakah SMKN 8 Jember negeri &amp; bebas biaya? <span class="pm">+</span></button><div class="pane"><div>Ya — SMKN 8 Jember adalah sekolah negeri (BLUD) sehingga mengikuti ketentuan biaya pendidikan sekolah negeri yang berlaku.</div></div></div>
+      <div class="acc"><button>Jurusan apa yang paling banyak peminatnya? <span class="pm">+</span></button><div class="pane"><div>Seluruh jurusan memiliki peminat tersendiri; otomotif (TKR &amp; TSM) membuka rombel terbanyak (masing-masing 3), sementara jurusan komputer &amp; pertanian terus tumbuh berkat kemitraan industri.</div></div></div>
+      <div class="acc"><button>Apakah ada kesempatan beasiswa &amp; kuliah? <span class="pm">+</span></button><div class="pane"><div>Sangat ada: setiap tahun 20+ lulusan lolos SNBP/SNBT, serta program beasiswa Smart Scholarship YBM BRILiaN, Chinese Government Scholarship, Petani Muda, hingga kuliah ke Taiwan dan Malaysia.</div></div></div>
+      <div class="acc"><button>Bagaimana menghubungi panitia PPDB? <span class="pm">+</span></button><div class="pane"><div>Melalui halaman <a class="link-accent" href="kontak.html">Kontak</a>, email smknegeri08jember@gmail.com, telepon 0336-444112, atau DM Instagram @smkn8_official.</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+</main>
 <footer>
   <div class="container">
     <div class="fgrid">
       <div>
-        <div class="fbrand"><img src="assets/img/logo-SMK3.png" alt="Logo"><span style="min-width:0"><b>SMK Negeri 8 Jember</b><span>Eskalaber • Bisa &amp; Hebat</span></span></div>
+        <div class="fbrand"><img src="assets/img/logo-SMK3.png" width="75" height="73" loading="lazy" decoding="async" alt="Logo"><span style="min-width:0"><b>SMK Negeri 8 Jember</b><span>Eskalaber • Bisa &amp; Hebat</span></span></div>
         <p>Sekolah Menengah Kejuruan negeri di Kecamatan Semboro, Kabupaten Jember. Berdiri sejak 2008 dengan 7 konsentrasi keahlian: siap kerja, siap wirausaha, siap kuliah.</p>
         <div class="socials">
           <a href="https://www.instagram.com/smkn8_official/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></a>
