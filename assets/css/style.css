@@ -1145,6 +1145,7 @@
     font-weight: 500;
     color: var(--text-muted);
     border-radius: var(--r-2);
+    white-space: nowrap;
     transition: color var(--t-1) var(--ease), background-color var(--t-1) var(--ease);
   }
 
