@@ -108,6 +108,7 @@
     --hot: var(--terra-500);
     --hot-strong: var(--terra-700);
     --hot-wash: var(--terra-wash);
+    --on-hot: #FFF9F2;
 
     --gold: var(--amber-500);
     --gold-ink: var(--amber-700);
@@ -580,11 +581,35 @@
   /* -----------------------------------------
      Editorial primitives
      ----------------------------------------- */
-  .sec-head { margin-bottom: var(--sp-8); }
-  .sec-head--mid { align-items: center; }
+  /* Section header. The markup says `.section-head` in 7 places;
+     `.sec-head` is kept as an alias so either name composes. */
+  .section-head,
+  .sec-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--sp-7);
+    flex-wrap: wrap;
+    margin-bottom: var(--sp-8);
+  }
 
+  .section-head > div,
+  .sec-head > div {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+  }
+
+  .sec-head--mid,
+  .section-head--mid { align-items: center; }
+
+  .section-head h2,
   .sec-head h2 { margin-top: var(--sp-4); }
+
+  .section-head .lead,
   .sec-head .lead { margin-top: var(--sp-4); }
+
+  .section-head > a,
+  .sec-head > a { flex-shrink: 0; }
 
   .eyebrow {
     display: inline-flex;
@@ -735,7 +760,7 @@
   /* Terracotta carries the primary action; green is decorative. */
   .btn-sun {
     background: var(--hot);
-    color: #FFF9F2;
+    color: var(--on-hot);
     box-shadow: var(--shadow-1);
   }
 
@@ -766,12 +791,28 @@
   .section--shell .btn-ghost { color: var(--on-shell); border-color: var(--ctx-line); }
   .section--shell .btn-ghost:hover { background: rgba(242, 237, 225, .08); border-color: var(--on-shell); }
 
+  /* Solid paper button for the pine CTA band. */
+  .btn-white {
+    background: var(--paper-1);
+    color: var(--pine-900);
+    box-shadow: var(--shadow-1);
+  }
+
+  .btn-white:hover { background: var(--paper-2); box-shadow: var(--shadow-2); }
+
+  /* Button row inside a CTA — `.actions` was never styled at all. */
+  .actions,
   .card-actions {
     display: flex;
     align-items: center;
-    gap: var(--sp-3);
+    gap: var(--sp-4);
     flex-wrap: wrap;
-    margin-top: var(--sp-5);
+    margin-top: var(--sp-6);
+    position: relative;
+  }
+
+  .card-actions {
+    margin-top: auto;
     padding-top: var(--sp-5);
     border-top: var(--rule);
   }
@@ -1996,7 +2037,7 @@
     place-items: center;
     aspect-ratio: 16 / 10;
     background:
-      repeating-linear-gradient(135deg, transparent 0 10px, rgba(11, 47, 38, .045) 10px 20px),
+      repeating-linear-gradient(135deg, transparent 0 10px, color-mix(in oklab, var(--text-strong) 6%, transparent) 10px 20px),
       var(--surface-2);
     font-family: var(--font-display);
     font-size: var(--t-7xl);
@@ -2060,7 +2101,7 @@
     block-size: 38px;
     border-radius: var(--r-pill);
     background: var(--hot);
-    color: #FFF9F2;
+    color: var(--on-hot);
     box-shadow: var(--shadow-2);
     transition: transform var(--t-2) var(--ease-pop);
   }
@@ -2168,6 +2209,9 @@
 
   .bcell.sp-2,
   .bcell.w2 { grid-column: span 2; }
+
+  /* Tall cell — the dark "SMK Pusat Keunggulan" tile. */
+  .bcell.h2r { grid-row: span 2; }
 
   .bcell h3 { font-size: var(--t-4xl); }
   .bcell p { font-size: var(--t-sm); line-height: 1.55; color: var(--text-muted); }
@@ -3125,7 +3169,7 @@
       color var(--t-2) var(--ease);
   }
 
-  .x:hover { background: var(--hot); color: #FFF9F2; transform: rotate(90deg); }
+  .x:hover { background: var(--hot); color: var(--on-hot); transform: rotate(90deg); }
 
   .lightbox figure {
     display: grid;
@@ -3159,19 +3203,23 @@
     inset-block-start: var(--sp-6);
   }
 
+  .vwrap,
   #vb-wrap {
     position: relative;
     inline-size: min(1000px, 92vw);
-    background: #000;
+    background: var(--shell-bg);
     border-radius: var(--r-2);
     overflow: hidden;
     box-shadow: var(--shadow-pop);
     animation: scale-in var(--t-3) var(--ease-out);
   }
 
+  .vwrap iframe,
+  .vwrap video,
   #vb-wrap iframe,
   #vb-wrap video {
     inline-size: 100%;
+    block-size: 100%;
     aspect-ratio: 16 / 9;
     border: 0;
   }
@@ -3219,7 +3267,10 @@
     margin-bottom: var(--sp-4);
   }
 
-  #r-meta {
+  /* `.meta` is the class on the same element as #r-meta; both
+     names appear across the 10 overlay copies. */
+  #r-meta,
+  .reader .meta {
     display: flex;
     align-items: center;
     gap: var(--sp-4);
@@ -3272,7 +3323,7 @@
     block-size: 68px;
     border-radius: var(--r-pill);
     background: var(--hot);
-    color: #FFF9F2;
+    color: var(--on-hot);
     box-shadow: var(--shadow-pop);
     transition: transform var(--t-2) var(--ease-pop);
   }
@@ -3300,6 +3351,12 @@
     block-size: 100%;
     border: 0;
   }
+
+  /* main.js emits `.playing` for a local MP4, where the poster,
+     the play disc and the YouTube label must all step aside. */
+  .ytblock.playing img,
+  .ytblock.playing .play,
+  .ytblock.playing .ytlabel { display: none; }
 
   /* FAQ accordion */
   .acc {
@@ -3351,7 +3408,7 @@
     transform: rotate(45deg);
     background: var(--hot);
     border-color: var(--hot);
-    color: #FFF9F2;
+    color: var(--on-hot);
   }
 
   .acc .pane {
