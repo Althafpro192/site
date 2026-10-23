@@ -52,8 +52,15 @@ REGIONS = ("theme-init", "head-tail", "chrome", "boot", "footer", "overlays", "s
 FULL_PAGES = ("berita.html",)
 
 # Kelas yang diset JS pada runtime: sah kalau tidak muncul di markup.
+# Kelas yang diset JS pada runtime: sah kalau tidak muncul di markup.
+# ".locked"/".js" dipasang stylesheet-driven dari main.js, ".has-img" dan
+# ".theme-fade" likewise, ".form-note" dibuat lewat createElement.
 UNUSED_ALLOWLIST = {".in", ".on", ".open", ".scrolled", ".show", ".done",
-                    ".playing", ".feature"}
+                    ".playing", ".feature", ".locked", ".js", ".has-img",
+                    ".theme-fade", ".form-note",
+                    # alias sadar: markup memakai .section-head, .sec-head
+                    # dipertahankan supaya kedua nama menyusun.
+                    ".sec-head", ".sec-head--mid"}
 
 MARKER_HINT = "edit site/_build/partials/{name}.html, lalu: python3 _build/build.py"
 
@@ -243,6 +250,10 @@ def used_classes(pages: list[str]) -> set[str]:
         # bersih bernama "g" dan "page", yang lalu dilaporkan sebagai kelas
         # tanpa gaya. Gerbang yang menjerit palsu akan diabaikan orang.
         stripped = re.sub(r"\$\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}", " ", attr)
+        # CLASS_ATTR berhenti di kutip pertama, jadi "chip ${x === g ? \"on\""
+        # menyisakan ${ yang tidak tertutup dan variabel g lolos sebagai kelas.
+        # Apa pun sesudah ${ yang menggantung bukan nama kelas.
+        stripped = stripped.split("${")[0]
         for token in stripped.split():
             if re.fullmatch(r"[_a-zA-Z][\w-]*", token):
                 found.add("." + token)

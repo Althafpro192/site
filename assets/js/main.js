@@ -257,7 +257,7 @@
     const embed = (m, u) => { const id = ytId(u); return id ? ytblock(id) : m; };
     const full = (D.FULL || {})[n.t];
     let html = full
-      ? `<div class="content">${sanitize(full).replace(/<div class="video-embed" data-src="([^"]+)"><\/div>/g, embed)}</div>`
+      ? `<div class="content">${sanitize(full)}</div>`
       : `<div class="content">${n.v ? ytblock(n.v) : ""}<p>${esc(n.x) || "Dokumentasi singkat kegiatan ini tersimpan di arsip redaksi Eskalaber."}</p></div>`;
     if (full) html = html.replace(/<a[^>]*href="(https?:\/\/(?:www\.)?(?:youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/)[\w-]{11}[^"]*)"[^>]*>[\s\S]*?<\/a>/g, embed);
     if (n.v && !html.includes("ytblock")) html = ytblock(n.v) + html;
