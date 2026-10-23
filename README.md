@@ -18,60 +18,58 @@ python3 -m http.server 8080   # lalu buka http://localhost:8080
 Keduanya didukung. Karena itu proyek ini sengaja **tidak** memakai ES modules,
 `fetch()` parsial, bundler, atau framework apa pun.
 
-## Sistem desain: "Lumina"
+## Sistem desain: "Clean SaaS / Emerald"
 
-Terang, hangat, dan berlapis. Permukaan kaca dengan bingkai gradien, kartu
-bertint, dan kedalaman 3D — bukan flat, bukan gelap korporat.
+Situs ini **dihasilkan**, bukan diedit tangan. `_build/build.py` merakit sepuluh
+halaman dari `content.py` + `components.py` + `pages.py`; tidak ada markup yang
+disalin antar halaman, dan tidak ada lapisan CSS bertumpuk.
 
-**Palet diturunkan dari logo sekolah, bukan dipilih sembarangan.** Logo
-SMKN 8 Jember didominasi kuning (#EFE804, 58% area) sebagai latar pendidikan:
-kehati-hatian, keceriaan, kebahagiaan. Tiga warna lain di logo menjadi penanda
-rumpun keahlian, dan dipakai konsisten di seluruh situs:
+### Palet
 
-| Warna | Kode | Rumpun |
+| Token | Nilai | Dipakai untuk |
 |---|---|---|
-| Kuning | `#F7C600` (UI) / `#EFE804` (logo) | Identitas & aksi utama |
-| Hijau | `#246C18` | Agribisnis Tanaman — ATPH, APT |
-| Biru | `#1162BF` | Teknologi Informasi — DKV, RPL, TKJ |
-| Merah | `#CF1D0D` | Teknik Otomotif — TKR, TSM |
+| `--bg` / `--surface` | `#FFFFFF` | seluruh permukaan |
+| `--surface-soft` | `#F7FAF8` | pita seksi, header tabel |
+| `--ink` | `#0B1A14` | judul |
+| `--ink-body` | `#26332D` | teks isi |
+| `--ink-muted` | `#5B7268` | teks sekunder |
+| `--ink-faint` | `#63756D` | label meta (4,89:1) |
+| `--accent` | `#047857` | satu-satunya warna aksi |
+| `--line` | `#E3EBE7` | hairline |
 
-Kartu jurusan membawa `data-prog="green|blue|red"`, sehingga lencana, nomor,
-dan tint kacanya mengikuti rumpunnya. Beranda dan halaman jurusan memakai
-penanda yang sama.
+Warna rumpun keahlian dipakai **tipis** sebagai penanda, bukan sebagai latar:
+biru `#0E63B8` (Teknologi Informasi), merah `#B42318` (Teknik Otomotif), hijau
+`#047857` (Agribisnis). Bentuknya hanya strip 3px di tepi atas kartu plus
+lencana — itulah yang membuatnya terasa disengaja.
 
-| | |
-|---|---|
-| Display | **Sora** 300–800 |
-| Teks, UI, tabel | **Manrope** 400–800 |
-| Font | self-host di `assets/fonts/` (4 berkas woff2, ±86 KB) |
-| Tema | **terang (default)** dan gelap hangat; toggle di navbar, tersimpan di `localStorage` |
-| Kedalaman | mozaik hero 3D berlapis (`translateZ`), tilt mengikuti kursor pada 17 kartu, kedalaman ikut `--px/--py` dari satu pass rAF |
+Seluruh pasangan teks diukur: **16/16 ≥ 4,5:1**, dihitung dari token asli oleh
+`_build/verify.py`, bukan diperkirakan.
 
-Token dibagi dua lapis: **tier 1** palet mentah dan **tier 2** semantik
-(`--bg`, `--surface`, `--text`, `--hot`, `--prog-*`, …). Tema gelap hanya
-menimpa tier 2. Stylesheet memakai `@layer`:
+### Tipografi
+
+**DM Sans** (self-host, 2 berkas woff2, ±92 KB). Skala `clamp()`, tracking
+negatif hanya pada display, `tabular-nums` untuk angka.
+
+### Kartu — satu resep, satu garis dasar
 
 ```
-reset, tokens, base, layout, motion, components, overrides, utilities, lumina
+.card          flex column, height 100%, gradient halus, shadow lembut
+.card__media   aspect-ratio 16/10, object-fit cover
+.card__title   clamp 2 baris
+.card__text    clamp 2–3 baris
+.card__foot    margin-top: auto   ← semua tombol duduk sejajar
 ```
 
-`lumina` adalah lapisan kulit visual — ia hanya menyentuh permukaan, gradien,
-kaca, dan 3D; struktur dan kontrak JS tetap di lapisan sebelumnya. Itu sebabnya
-arah visual bisa diganti total tanpa menyentuh tata letak atau `main.js`.
+Tinggi seragam datang dari `align-items: stretch` milik grid, bukan dari
+memaksa tinggi tetap. Sisa baris tidak pernah dibiarkan menggantung: 7 kartu
+jurusan pada grid 3 kolom menjadi 3 + 3 + **1 kartu melintang penuh**
+(`.card--wide`, foto kiri, teks kanan).
 
-**Aturan keras:** tidak ada literal warna di luar token, tidak ada `style="…"`
-di halaman, dan **kuning tidak pernah dipakai sebagai teks di atas putih**
-(#EFE804 hanya 1,3:1). Kuning selalu berupa isian dengan tinta gelap di atasnya
-(9,99:1), sedangkan teks emas memakai `--brand-700 #8A6600` (5,27:1). Seluruh
-pasangan teks terukur ≥ 4,5:1 (WCAG AA) di kedua tema.
+### Font & media
 
-### Responsif
-
-Breakpoint mengikuti isi, bukan perangkat: 1200 / 1080 / 1024 / 900 / 640.
-Nav horizontal runtuh ke drawer pada **900px**, titik di mana sepuluh tautan
-plus lockup plus toggle benar-benar tidak lagi muat. Di bawah 900px blur berat
-dan transformasi 3D dimatikan demi performa, dan pada pointer kasar semua
-kontrol utama berukuran ≥ 44px.
+Tidak ada permintaan runtime ke pihak ketiga. Tidak ada ES modules dan tidak
+ada `fetch()` parsial, sehingga `index.html` tetap jalan saat dibuka langsung
+dari berkas (`file://`).
 
 ## 10 Halaman
 

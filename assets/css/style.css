@@ -511,6 +511,9 @@ h1, h2, h3, h4 {
 .card--program .card__foot { color: var(--ink-muted); }
 
 /* Kartu program melebar: dipakai untuk sisa baris supaya tidak menggantung */
+.grid--3 > .card--wide,
+.grid--4 > .card--wide { grid-column: 1 / -1; }
+
 .card--wide {
   display: grid;
   grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
@@ -876,6 +879,13 @@ h1, h2, h3, h4 {
   background: var(--surface-sunk);
 }
 .tile img { inline-size: 100%; transition: transform var(--t-4) var(--ease-out); }
+/* Tanpa tinggi cadangan, tile setinggi 0 sampai gambar lazy termuat —
+   itulah sebabnya galeri beranda tampak kosong. */
+.grid--4 .tile img, .grid--3 .tile img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.masonry .tile img { min-block-size: 120px; }
 .tile:hover img { transform: scale(1.04); }
 .tile__cap {
   position: absolute; inset-inline: 0; inset-block-end: 0;
@@ -1107,7 +1117,8 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .nav, .nav__cta { display: none; }
   .nav__burger { display: inline-grid; }
   .hero__inner { grid-template-columns: 1fr; }
-  .hero__visual { order: -1; max-inline-size: 620px; }
+  /* Di ponsel pesan utama tetap lebih dulu daripada gambar. */
+  .hero__visual { max-inline-size: 620px; }
   .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5); }
@@ -1141,6 +1152,15 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .toolbar { align-items: stretch; }
   .search { inline-size: 100%; }
   .totop { inset-inline-end: var(--sp-4); inset-block-end: var(--sp-4); }
+}
+
+/* target sentuh untuk pointer kasar & layar sempit */
+@media (pointer: coarse), (max-width: 1040px) {
+  .tk { min-block-size: 44px; padding-block: 11px; }
+  .card__title a { display: inline-block; padding-block: 6px; }
+  .footer__links a { min-block-size: 44px; }
+  .crumb a, .link { min-block-size: 40px; }
+  .brand { min-block-size: 44px; }
 }
 
 /* target sentuh untuk pointer kasar */

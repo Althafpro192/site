@@ -213,7 +213,7 @@ def news_card(n: dict, idx: int, feature: bool = False, base: str = "berita.html
   <div class="card__body">
     <p class="card__kicker">{_date(n["d"])}</p>
     <h3 class="card__title"><a href="{href}" data-read="{esc(n["t"])}" data-i="{idx}">{esc(n["t"])}</a></h3>
-    <p class="card__text">{esc(n.get("x") or "Baca selengkapnya untuk informasi lengkap kegiatan ini.")}</p>
+    <p class="card__text">{esc(clean_excerpt(n.get("x")))}</p>
     <div class="card__foot">
       <a class="link" href="{href}" data-read="{esc(n["t"])}" data-i="{idx}">Baca selengkapnya {icon("arrow")}</a>
     </div>
@@ -234,6 +234,18 @@ def gallery_tile(g: dict) -> str:
   <img src="{g["s"]}" alt="" loading="lazy" decoding="async">
   <span class="tile__cap">{esc(g["c"])}</span>
 </a>'''
+
+
+def clean_excerpt(text: str | None) -> str:
+    """Ringkasan dari data.js kadang membawa URL mentah atau penanda [VIDEO].
+    Tampilkan sebagai kalimat, bukan sebagai tautan setengah jadi."""
+    import re as _re
+    if not text:
+        return "Baca selengkapnya untuk informasi lengkap kegiatan ini."
+    t = _re.sub(r"\[(?:VIDEO|AUDIO|GALERI)\]\s*", "", text, flags=_re.I)
+    t = _re.sub(r"https?://\S+", "", t)
+    t = _re.sub(r"\s{2,}", " ", t).strip(" -–—·")
+    return t or "Baca selengkapnya untuk informasi lengkap kegiatan ini."
 
 
 def _date(iso: str) -> str:
