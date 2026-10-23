@@ -397,9 +397,10 @@
   h4 { font-size: var(--t-2xl); }
   h5, h6 { font-size: var(--t-body); }
 
-  .h1 { font-size: var(--t-hero); line-height: var(--lh-tight); }
+  /* 21 heading di markup membawa class="h2" secara eksplisit; aturan
+     elemen sudah memberi ukuran yang sama, tapi kelasnya tetap didefinisikan
+     supaya gerbang kelas-tak-terdefinisi tidak menjerit palsu. */
   .h2 { font-size: var(--t-6xl); }
-  .h3 { font-size: var(--t-4xl); }
 
   .lead {
     font-size: clamp(1rem, 1.25vw, 1.125rem);
@@ -543,7 +544,6 @@
   }
 
   .stack { display: grid; gap: var(--sp-4); }
-  .stack--tight { gap: var(--sp-2); }
 
   .toolbar {
     display: flex;
@@ -556,8 +556,6 @@
      Hairlines & print frames
      ----------------------------------------- */
   .rule { border-top: var(--rule); }
-  .rule--strong { border-top: 2px solid var(--text-strong); }
-  .rule--shell { border-top: 1px solid var(--ctx-line); }
 
   .frame {
     border: var(--frame);
@@ -566,17 +564,6 @@
   }
 
   .frame img { border: 0; box-shadow: none; }
-
-  .offset-frame { position: relative; }
-
-  .offset-frame::after {
-    content: "";
-    position: absolute;
-    inset: var(--sp-2) calc(var(--sp-2) * -1) calc(var(--sp-2) * -1) var(--sp-2);
-    border: 1px solid var(--text-strong);
-    z-index: -1;
-    pointer-events: none;
-  }
 
   /* -----------------------------------------
      Editorial primitives
@@ -670,10 +657,6 @@
     letter-spacing: -.03em;
     color: var(--text-strong);
   }
-
-  .numeral--xl { font-size: var(--t-8xl); }
-  .numeral--lg { font-size: var(--t-7xl); }
-  .numeral--md { font-size: var(--t-5xl); }
 
   .lead--drop::first-letter {
     font-family: var(--font-display);
@@ -2164,8 +2147,8 @@
     isolation: isolate;
   }
 
-  .bcell.sp-2,
-  .bcell.w2 { grid-column: span 2; }
+
+  .bcell.sp-2 { grid-column: span 2; }
 
   /* Tall cell — the dark "SMK Pusat Keunggulan" tile. */
   .bcell.h2r { grid-row: span 2; }
@@ -2302,16 +2285,25 @@
     border-radius: var(--r-2);
   }
 
-  .xcard > img,
-  .xcard .noico {
+  /* main.js wraps the photo (or the numeral tile) in its own cell:
+     <div class="xcard"><div><img|div.noico></div><div><h3><p></div></div>
+     Sizing the wrapper, not the img, is what keeps both variants square. */
+  .xcard > div:first-child {
     inline-size: 68px;
     block-size: 68px;
     flex-shrink: 0;
-    object-fit: cover;
-    border-radius: var(--r-1);
+    overflow: hidden;
     border: var(--rule);
+    border-radius: var(--r-1);
+  }
+
+  .xcard > div:first-child img,
+  .xcard .noico {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    border: 0;
     font-size: var(--t-4xl);
-    aspect-ratio: 1;
   }
 
   .xcard h3 {
@@ -2867,12 +2859,6 @@
   /* kontak.html wrapped fields in bare <div>; now they are .field. */
   .field { display: grid; gap: var(--sp-2); }
 
-  .form .row2 {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--sp-5);
-  }
-
   .form label {
     font-size: var(--t-xs);
     font-weight: 600;
@@ -3325,8 +3311,7 @@
 
   .acc + .acc { margin-top: var(--sp-3); }
 
-  .acc > button,
-  .acc .q {
+  .acc > button {
     inline-size: 100%;
     display: flex;
     align-items: center;
@@ -3374,9 +3359,8 @@
     transition: max-height var(--t-3) var(--ease);
   }
 
-  .acc .pane > div,
-  .acc .pm + * {
-    padding: 0 var(--sp-6) var(--sp-6);
+  .acc .pane > div {
+    padding: var(--sp-5) var(--sp-6) var(--sp-6);
     font-size: var(--t-sm);
     line-height: 1.65;
     color: var(--text-muted);
@@ -3446,7 +3430,7 @@
     .grid-2, .grid-3, .grid-4,
     .bento, .majors, .survei-grid { grid-template-columns: minmax(0, 1fr); }
 
-    .bcell.sp-2, .bcell.w2 { grid-column: auto; }
+    .bcell.sp-2 { grid-column: auto; }
     .masonry, #galeri-grid { columns: 1; }
     .hero-float { display: none; }
     .hero-chip { inset-inline-start: var(--sp-3); }
@@ -3454,7 +3438,7 @@
     .stat b, .stat .numeral { font-size: var(--t-6xl); }
     .btn { padding: 13px var(--sp-5); }
     .totop { inset-inline-end: var(--sp-4); inset-block-end: var(--sp-4); inline-size: 42px; block-size: 42px; }
-    .xcard > img, .xcard .noico { inline-size: 56px; block-size: 56px; }
+    .xcard > div:first-child { inline-size: 56px; block-size: 56px; }
     .searchbox { inline-size: 100%; }
     .cta .side { grid-auto-flow: row; }
   }
