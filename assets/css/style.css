@@ -890,6 +890,16 @@
 
     .jcard:hover .ph img,
     .ncard:hover .ph img { transform: scale(1.045); }
+
+    /* Pointer-tracked tilt. main.js writes --tx/--ty from one delegated
+       listener; the attribute is opt-in so a card that never gets it is
+       simply a card. */
+    [data-tilt] {
+      transform: perspective(900px)
+        rotateX(calc(var(--tx, 0) * 1deg))
+        rotateY(calc(var(--ty, 0) * 1deg))
+        translateY(-4px);
+    }
   }
 
   /* -----------------------------------------

@@ -73,12 +73,57 @@
   })();
 
   const nav = $("#nav"), burger = $("#burger"), mmenu = $("#mmenu"), totop = $("#totop");
-  const onScroll = () => {
+
+  /* Satu pass rAF gabungan: nav, tombol atas, dan kedalaman hero semuanya
+     dibaca dari siklus yang sama — tidak ada listener scroll kedua. Tanpa
+     guard .js pada CSS, hook yang tak bertuan ini akan jadi ornamen mati. */
+  const heroVisual = $(".hero-visual");
+  const finePointer = matchMedia("(hover: hover) and (min-width: 900px)");
+  let ticking = false, hx = 0, hy = 0;
+
+  const paint = () => {
+    ticking = false;
     nav && nav.classList.toggle("scrolled", scrollY > 12);
     totop && totop.classList.toggle("show", scrollY > 600);
+    if (!heroVisual || RM || !finePointer.matches) return;
+    const r = heroVisual.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;   // di luar layar: jangan menulis
+    const prog = (innerHeight - r.top) / (innerHeight + r.height);
+    heroVisual.style.setProperty("--sy", (prog * 26).toFixed(2));
+    heroVisual.style.setProperty("--px", hx.toFixed(2));
+    heroVisual.style.setProperty("--py", hy.toFixed(2));
+  };
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(paint);
   };
   addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  if (heroVisual) heroVisual.addEventListener("pointermove", (e) => {
+    if (RM || !finePointer.matches) return;
+    const r = heroVisual.getBoundingClientRect();
+    hx = ((e.clientX - r.left) / r.width - .5) * 12;
+    hy = ((e.clientY - r.top) / r.height - .5) * 12;
+  });
+  paint();
+  /* Tilt kartu: SATU listener delegasi untuk semua [data-tilt], bukan satu
+     per kartu. --tx/--ty dibaca oleh aturan [data-tilt] di stylesheet; tanpa
+     driver ini aturan itu cuma ornamen yang tak pernah menyala. */
+  let tiltEl = null;
+  addEventListener("pointermove", (e) => {
+    if (RM || !finePointer.matches) return;
+    const t = e.target && e.target.closest ? e.target.closest("[data-tilt]") : null;
+    if (t !== tiltEl) {
+      if (tiltEl) { tiltEl.style.removeProperty("--tx"); tiltEl.style.removeProperty("--ty"); }
+      tiltEl = t;
+      return;
+    }
+    if (!t) return;
+    const r = t.getBoundingClientRect();
+    t.style.setProperty("--ty", (((e.clientX - r.left) / r.width - .5) * 6).toFixed(2));
+    t.style.setProperty("--tx", ((((e.clientY - r.top) / r.height - .5) * -6)).toFixed(2));
+  }, { passive: true });
+
   burger && burger.addEventListener("click", () => {
     burger.classList.toggle("open"); mmenu && mmenu.classList.toggle("open");
   });
@@ -490,11 +535,11 @@
     e.preventDefault();
     const fd = new FormData(cf);
     const body = encodeURIComponent(`Nama: ${fd.get("nama")}\nEmail: ${fd.get("email")}\nSubjek: ${fd.get("subjek")}\n\n${fd.get("pesan")}`);
-    location.href = `mailto:smknegeri08jember@gmail.com?subject=${encodeURIComponent(fd.get("subjek") || "Pesan Website")}&body=${body}`;
     const note = document.createElement("div");
     note.className = "form-note";
     note.setAttribute("role", "status");
     note.textContent = "Terima kasih! Aplikasi email Anda terbuka untuk mengirim pesan ke Humas SMKN 8 Jember.";
-    cf.innerHTML = ""; cf.appendChild(note);
+    cf.innerHTML = ""; cf.appendChild(note);   /* konfirmasi dulu, lalu serahkan ke mailto */
+    location.href = `mailto:smknegeri08jember@gmail.com?subject=${encodeURIComponent(fd.get("subjek") || "Pesan Website")}&body=${body}`;
   });
 })();
