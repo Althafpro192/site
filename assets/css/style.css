@@ -629,9 +629,9 @@ h1, h2, h3, h4 {
   padding-top: var(--sp-5);
   border-top: 1px solid var(--line);
 }
-@media (min-width: 1280px) {
-  .hero__points { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
+/* 2x2 selalu: dengan empat kolom, label seperti "Terakreditasi & BLUD"
+   membungkus dan garis atasnya jadi tidak rata. */
+.hero__point { white-space: nowrap; }
 .hero__point {
   display: flex; align-items: center; gap: 7px;
   font-size: var(--t-xs); font-weight: 500; color: var(--ink-muted);
