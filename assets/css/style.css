@@ -779,12 +779,14 @@
 
 @layer motion {
 
-  /* -----------------------------------------
-     Scroll reveals. --rd is set by main.js from
+  /* Scroll reveals. --rd is set by main.js from
      the element's index among its siblings, so a
      grid lands in sequence without a JS timer.
-     ----------------------------------------- */
-  .reveal {
+
+     Gated on html.js for the same reason the intro screen is:
+     if the script never runs, hiding 22 blocks of content would
+     be a far worse failure than losing the animation. */
+  html.js .reveal {
     opacity: 0;
     transform: translateY(22px);
     transition: opacity var(--t-5) var(--ease-out),
@@ -793,30 +795,28 @@
     transition-delay: var(--rd, 0ms);
   }
 
-  .reveal.in {
+  html.js .reveal.in {
     opacity: 1;
     transform: none;
     transition-delay: 0ms;
   }
 
-  /* Hairline that draws itself across a section break. */
-  .reveal-rule {
+  html.js .reveal-rule {
     transform: scaleX(0);
     transform-origin: left;
     transition: transform var(--t-5) var(--ease-out);
     transition-delay: var(--rd, 0ms);
   }
 
-  .reveal-rule.in { transform: scaleX(1); }
+  html.js .reveal-rule.in { transform: scaleX(1); }
 
-  /* Framed photograph wipes in from its bottom edge. */
-  .reveal-img {
+  html.js .reveal-img {
     clip-path: inset(0 0 100% 0);
     transition: clip-path var(--t-5) var(--ease-out);
     transition-delay: var(--rd, 0ms);
   }
 
-  .reveal-img.in { clip-path: inset(0 0 0 0); }
+  html.js .reveal-img.in { clip-path: inset(0 0 0 0); }
 
   /* -----------------------------------------
      Lift — reads as a print card being picked up,
