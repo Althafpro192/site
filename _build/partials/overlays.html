@@ -1,0 +1,22 @@
+<button class="totop" id="totop" type="button" aria-label="Kembali ke atas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" tabindex="-1" aria-label="Pratinjau foto">
+  <button class="x" type="button" aria-label="Tutup">✕</button>
+  <figure><img id="lb-img" src="" alt=""><figcaption class="cap" id="lb-cap"></figcaption></figure>
+</div>
+<div class="lightbox" id="videobox" role="dialog" aria-modal="true" tabindex="-1" aria-label="Pemutar video">
+  <button class="x" type="button" aria-label="Tutup">✕</button>
+  <figure><div class="vwrap" id="vb-wrap"></div><figcaption class="cap" id="vb-cap"></figcaption></figure>
+</div>
+<div class="reader" id="reader" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="r-title">
+  <div class="bg"></div>
+  <div class="sheet">
+    <button class="x" id="r-close" type="button" aria-label="Tutup artikel">✕</button>
+    <img class="heroimg" id="r-img" src="" alt="">
+    <div class="inner">
+      <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Eskalaber News</span>
+      <h2 id="r-title"></h2>
+      <div class="meta" id="r-meta"></div>
+      <div class="content" id="r-body"></div>
+    </div>
+  </div>
+</div>

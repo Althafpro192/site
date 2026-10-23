@@ -1,0 +1,11 @@
+<script>
+/* Tema dibaca SEBELUM stylesheet agar tidak ada flash (no-FOUC).
+   Default: SELALU terang. State disimpan di localStorage['eskalaber-theme']
+   oleh handler #theme-toggle di main.js. try/catch: mode privat / file://. */
+try {
+  document.documentElement.setAttribute(
+    "data-theme",
+    localStorage.getItem("eskalaber-theme") === "dark" ? "dark" : "light"
+  );
+} catch (e) {}
+</script>

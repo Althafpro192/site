@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+# SUPERSEDED BY build.py — DO NOT RUN
+# ---------------------------------------------------------------------------
+# Arsip. Tugas file ini (menyuntikkan preloader .boot + html.is-loading) sudah
+# diambil alih oleh _build/build.py + _build/partials/boot.html, yang idempoten
+# dan punya marker @GENERATED. Skrip lama ini ONE-SHOT (tidak idempoten untuk
+# <html class=...>) dan sekarang pun path-nya salah: ia resolve ke parent.parent
+# yang sejak pindah ke _build/ bukan lagi root situs. Jangan dijalankan.
+# ---------------------------------------------------------------------------
 """Inject the boot preloader markup + html.is-loading lock into every page in site/."""
 import re
 import pathlib
