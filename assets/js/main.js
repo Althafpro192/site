@@ -334,7 +334,7 @@
         r.hidden = !ok;
         if (ok) shown++;
       });
-      var empty = $(".empty", table.parentNode);
+      var empty = $(".empty-row", table.tBodies[0]);
       if (!shown && !empty) {
         var tr = document.createElement("tr");
         tr.className = "empty-row";
