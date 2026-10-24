@@ -18,6 +18,7 @@ SCHOOL = {
     "tagline": "Bisa & Hebat",
     "kind": "Sekolah Agro Industri",
     "status": "SMK Pusat Keunggulan · BLUD",
+    "npsn": "20554690",
     "address": "Jl. Pelita No. 27, Sidomekar, Semboro, Jember, Jawa Timur 68157",
     "region": "Semboro, Jember",
     "phone": "0336-444112",
@@ -36,19 +37,13 @@ SCHOOL = {
     "founded": 2008,
 }
 
-# Statistik yang dipakai di beranda & profil
-STATS = [
-    ("1.712", "Peserta didik aktif", "TP 2023/2024"),
-    ("17", "Tahun mengabdi", "sejak 2008"),
-    ("114", "Guru & tenaga didik", "89 guru · 25 staf"),
-    ("52", "Mitra industri", "MoU aktif"),
-]
-
+# Statistik kartu metrik di beranda: (nilai, label, ikon, rona)
+# rona "gold" hanya untuk satu kartu — kuning logo dipakai secukupnya.
 HEADLINE_STATS = [
-    ("1.712", "Peserta didik aktif"),
-    ("7", "Konsentrasi keahlian"),
-    ("114", "Guru & tenaga kependidikan"),
-    ("16", "Rombel SPMB 2026"),
+    ("1.712", "Peserta didik aktif · TP 2023/2024", "users", ""),
+    ("7", "Konsentrasi keahlian", "book", ""),
+    ("114", "Guru & tenaga kependidikan", "shield", ""),
+    ("16", "Rombel SPMB 2026", "trophy", "gold"),
 ]
 
 # ------------------------------------------------------------------ programs
@@ -139,6 +134,22 @@ HERO = {
     "title_accent": "yang mencetak juara",
     "lead": "SMK Negeri 8 Jember menyiapkan lulusan yang siap kerja, siap berwirausaha, dan siap melanjutkan pendidikan — melalui 7 konsentrasi keahlian, teaching factory, dan kemitraan industri nyata.",
     "points": ["Terakreditasi & BLUD", "Teaching Factory", "Juara LKS Provinsi", "17+ Ekstrakurikuler"],
+    # Panggung hero: satu foto utama + dua pendamping, dengan capaian nyata di bawahnya
+    "photo": "assets/img/lobi.webp",
+    "photo_alt": "Lobi SMK Negeri 8 Jember",
+    "live": "Kampus Semboro — lahan, bengkel, dan lab sendiri",
+    "crest": "SMK Pusat Keunggulan",
+    "kicker": "Capaian 2025",
+    "note": "Juara 3 LKS Dikmen Provinsi Jawa Timur",
+    "note_text": "Ditutup Best Completer Finisher Award pada SEASO Science Olympiad di Penang, Malaysia.",
+    "note_foot": "Papan prestasi",
+    "note_href": "kegiatan.html#prestasi-grid",
+    "thumbs": [
+        ("assets/img/TKR1-scaled.webp", "Praktik kendaraan di bengkel TKR", 1000, 667),
+        ("assets/img/APH-1-1536x1021.webp", "Lahan praktik agribisnis ATPH", 1400, 931),
+    ],
+    "float_value": "1.712",
+    "float_label": "Peserta didik aktif",
 }
 
 WELCOME = {

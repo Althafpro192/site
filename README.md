@@ -18,46 +18,56 @@ python3 -m http.server 8080   # lalu buka http://localhost:8080
 Keduanya didukung. Karena itu proyek ini sengaja **tidak** memakai ES modules,
 `fetch()` parsial, bundler, atau framework apa pun.
 
-## Sistem desain: "Clean SaaS / Emerald"
+## Sistem desain: "Eskalaber Green 3D"
 
 Situs ini **dihasilkan**, bukan diedit tangan. `_build/build.py` merakit sepuluh
 halaman dari `content.py` + `components.py` + `pages.py`; tidak ada markup yang
 disalin antar halaman, dan tidak ada lapisan CSS bertumpuk.
 
+Warna tidak dikarang: hijau dan kuning diambil dari berkas logo sekolah
+(`assets/img/logo-SMK3.png` — kuning `#FCF000` ±40% piksel, hijau `#004800`).
+Hijau dominan di seluruh situs, kuning **hanya aksen**. Nama "SMK Negeri 8 Jember"
+selalu tinta gelap (`--ink`) — tidak pernah ikut gradien atau kuning.
+
 ### Palet
 
 | Token | Nilai | Dipakai untuk |
 |---|---|---|
-| `--bg` / `--surface` | `#FFFFFF` | seluruh permukaan |
-| `--surface-soft` | `#F7FAF8` | pita seksi, header tabel |
-| `--ink` | `#0B1A14` | judul |
-| `--ink-body` | `#26332D` | teks isi |
-| `--ink-muted` | `#5B7268` | teks sekunder |
-| `--ink-faint` | `#63756D` | label meta (4,89:1) |
-| `--accent` | `#047857` | satu-satunya warna aksi |
-| `--line` | `#E3EBE7` | hairline |
+| `--brand-950…50` | `#03190F` → `#EFFBF3` | satu ramp hijau (hue 145°), semua permukaan & aksi |
+| `--accent` | `#0B6B34` | warna aksi (6,63:1 dengan putih) |
+| `--gold` | `#F5D400` | isian kuning: ubin trofi, garis bawah judul, pil motto |
+| `--gold-ink` / `--on-gold` | `#6B5200` / `#241A00` | teks di atas kuning — kuning murni hanya 1,2:1 |
+| `--on-deep` / `--on-deep-2` | `#EAF7EF` / `#BFE6CE` | teks di atas hijau tua; **tidak** di-override tema gelap |
+| `--ink` | `#07150E` | judul, dan nama sekolah |
+| `--ink-faint` | `#5C6E66` | label meta (5,6:1) |
 
-Warna rumpun keahlian dipakai **tipis** sebagai penanda, bukan sebagai latar:
-biru `#0E63B8` (Teknologi Informasi), merah `#B42318` (Teknik Otomotif), hijau
-`#047857` (Agribisnis). Bentuknya hanya strip 3px di tepi atas kartu plus
-lencana — itulah yang membuatnya terasa disengaja.
+Ramp `--brand-*` **dibalik** di tema gelap (100 jadi gelap) supaya tetap
+dipakai sebagai latar. Karena itu teks di atas bar hijau tua memakai `--on-deep`,
+bukan `--brand-100` — kalau tidak, label NPSN dan teks CTA jadi tak terbaca di
+tema gelap.
 
-Seluruh pasangan teks diukur: **16/16 ≥ 4,5:1**, dihitung dari token asli oleh
+Gradien tombol menyimpan titik paling terangnya di `--on-accent-check`
+(`#0D7A3A` terang / `#26AE63` gelap); gerbang kontras memeriksa titik itu, jadi
+teks putih 14px di atas tombol tidak bisa kembali diam-diam jatuh ke 4,4:1.
+
+Seluruh pasangan teks diukur: **26/26 ≥ 4,5:1**, dihitung dari token asli oleh
 `_build/verify.py`, bukan diperkirakan.
 
 ### Tipografi
 
-**DM Sans** (self-host, 2 berkas woff2, ±92 KB). Skala `clamp()`, tracking
-negatif hanya pada display, `tabular-nums` untuk angka.
+**Plus Jakarta Sans** 400–800 untuk teks, **JetBrains Mono** 400–700 untuk angka,
+nomor kartu, tanggal, dan label teknis — self-host, 4 berkas woff2 subset latin,
+±92 KB. Judul 800 dengan tracking negatif; `tabular-nums` pada semua angka.
 
-### Kartu — satu resep, satu garis dasar
+### Permukaan 3D
 
 ```
-.card          flex column, height 100%, gradient halus, shadow lembut
-.card__media   aspect-ratio 16/10, object-fit cover
-.card__title   clamp 2 baris
-.card__text    clamp 2–3 baris
-.card__foot    margin-top: auto   ← semua tombol duduk sejajar
+.card          flex column, height 100%, gradien halus, tepi atas lebih terang
+               dari sisinya (--card-edge), bayangan 3 lapis bernuansa hijau,
+               naik 6px saat hover
+.btn--primary  gradien 135° + inset highlight (--bevel) + bayangan hijau
+.amb           tiga radial-gradient lembut di belakang konten (tanpa filter
+               blur, jadi murah di GPU), aria-hidden, z-index -1
 ```
 
 Tinggi seragam datang dari `align-items: stretch` milik grid, bukan dari

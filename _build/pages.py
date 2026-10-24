@@ -38,36 +38,59 @@ def _programs_grid(limit: int | None = None) -> str:
 # ===========================================================  BERANDA
 def index() -> str:
     s = C.SCHOOL
+    h = C.HERO
+    thumbs = "".join(
+        f'<a href="galeri.html"><img src="{src}" alt="{H.esc(alt)}" width="{w}" height="{ht}" loading="lazy" decoding="async"></a>'
+        for src, alt, w, ht in h["thumbs"]
+    )
     hero = f'''<section class="hero">
   <div class="container hero__inner">
     <div class="hero__copy">
-      <p class="hero__badge"><img src="assets/img/logo-SMK3.png" alt="" width="75" height="73">{H.esc(C.HERO["badge"])}</p>
-      <h1 class="hero__title">{H.esc(C.HERO["title_top"])}<br><em>{H.esc(C.HERO["title_accent"])}</em></h1>
-      <p class="lead hero__lead">{H.esc(C.HERO["lead"])}</p>
+      <p class="hero__badge"><img src="assets/img/logo-SMK3.png" alt="" width="75" height="73">{H.esc(h["badge"])}</p>
+      <h1 class="hero__title">{H.esc(h["title_top"])} <em>{H.esc(h["title_accent"])}</em></h1>
+      <p class="lead hero__lead">{H.esc(h["lead"])}</p>
       <div class="hero__actions">
         {H.btn("Jelajahi 7 jurusan", "jurusan.html", "primary", "arrow")}
         {H.btn("Tur virtual 360°", s["tour"], "ghost", "", external=True)}
       </div>
       <ul class="hero__points">
-        {''.join(f'<li class="hero__point">{H.icon("check")}{H.esc(p)}</li>' for p in C.HERO["points"])}
+        {''.join(f'<li class="hero__point">{H.icon("check")}{H.esc(p)}</li>' for p in h["points"])}
       </ul>
     </div>
     <div class="hero__visual">
-      <div class="hero__stack">
-        <img src="assets/img/lobi.webp" alt="Lobi SMKN 8 Jember" width="1200" height="720" loading="eager" fetchpriority="high" decoding="async">
-        <img src="assets/img/TKR1-scaled.webp" alt="Praktik otomotif" width="1000" height="667" loading="lazy" decoding="async">
-        <img src="assets/img/APH-1-1536x1021.webp" alt="Lahan agribisnis" width="1400" height="931" loading="lazy" decoding="async">
+      <div class="hero__stage">
+        <div class="hero__photo">
+          <img src="{h["photo"]}" alt="{H.esc(h["photo_alt"])}" width="1200" height="720" loading="eager" fetchpriority="high" decoding="async">
+          <span class="hero__scrim"></span>
+          <span class="hero__crest">{H.icon("star")}{H.esc(h["crest"])}</span>
+          <span class="hero__live">{H.icon("pin")}{H.esc(h["live"])}</span>
+        </div>
+        <div class="hero__note">
+          <div class="hero__note-top">
+            <div>
+              <span class="hero__kicker">{H.esc(h["kicker"])}</span>
+              <h2 class="hero__note-title">{H.esc(h["note"])}</h2>
+            </div>
+            <span class="hero__trophy">{H.icon("trophy")}</span>
+          </div>
+          <p class="hero__note-text">{H.esc(h["note_text"])}</p>
+          <div class="hero__note-foot">
+            <span>{H.esc(h["note_foot"])}</span>
+            <a class="link" href="{h["note_href"]}">Lihat semua {H.icon("arrow")}</a>
+          </div>
+        </div>
       </div>
+      <div class="hero__thumbs">{thumbs}</div>
       <div class="hero__float">
         <span class="hero__float-ico">{H.icon("users")}</span>
-        <div><b>1.712</b><span>Peserta didik aktif</span></div>
+        <div><b>{H.esc(h["float_value"])}</b><span>{H.esc(h["float_label"])}</span></div>
       </div>
     </div>
   </div>
 </section>'''
 
     stats = '<section class="section--tight"><div class="container"><div class="stats">' \
-        + "".join(H.stat_card(v, l) for v, l in C.HEADLINE_STATS) + "</div></div></section>"
+        + "".join(H.stat_card(v, l, i, t) for v, l, i, t in C.HEADLINE_STATS) + "</div></div></section>"
 
     w = C.WELCOME
     welcome = f'''<section class="section"><div class="container">
@@ -92,7 +115,8 @@ def index() -> str:
     programs = f'''<section class="section section--soft" id="jurusan"><div class="container">
   {H.section_head("7 jurusan, 3 program keahlian",
                    "Teknik Otomotif, Teknik Komputer & Informatika, serta Teknologi Pertanian — semuanya dilengkapi bengkel, lab, dan lahan praktik sendiri.",
-                   "Konsentrasi keahlian", H.btn("Detail semua jurusan", "jurusan.html", "ghost", "arrow"))}
+                   "Konsentrasi keahlian", H.btn("Detail semua jurusan", "jurusan.html", "ghost", "arrow"),
+                   note=f"{C.SPMB['quota_total'][0]} rombel · {C.SPMB['quota_total'][1]} kursi SPMB 2026")}
   {_programs_grid()}
 </div></section>'''
 
@@ -138,7 +162,7 @@ def index() -> str:
     partners = "".join(f'<span class="tag">{H.esc(m)}</span>' for m in MITRA)
     mitra = f'''<section class="section--tight"><div class="container">
   {H.section_head("Dipercaya mitra industri & akademik", "", "Kemitraan")}
-  <div class="row" class="gap-2">{partners}</div>
+  <div class="row gap-2">{partners}</div>
 </div></section>'''
 
     cta = f'''<section class="section--tight"><div class="container">
@@ -175,7 +199,7 @@ def jurusan() -> str:
   <p class="lead">Tiga program keahlian — Teknik Otomotif, Teknik Komputer &amp; Informatika, serta Teknologi Pertanian — dengan bengkel, lab, dan lahan praktik sendiri.</p>
 </div></header>'''
     summary = f'<section class="section--tight"><div class="container"><div class="grid grid--3">{"".join(clusters)}</div></div></section>'
-    grid = f'<section class="section--tight" class="flush-top"><div class="container" id="program">{_programs_grid()}</div></section>'
+    grid = f'<section class="section--tight flush-top"><div class="container" id="program">{_programs_grid()}</div></section>'
     cta = f'''<section class="section--tight"><div class="container">
   <div class="cta">
     <div><h2 class="cta__title">Masih bingung memilih jurusan?</h2>
@@ -353,7 +377,7 @@ def profil() -> str:
     data = f'''<section class="section--tight"><div class="container">
   {H.section_head(f'{P["students_total"]} peserta didik', P["students_year"], "Data siswa")}
   <div class="split items-start">
-    <div class="table-wrap" class="mw-sm"><table class="table"><thead><tr><th>Tingkat</th><th class="is-num">Jumlah</th></tr></thead>
+    <div class="table-wrap mw-sm"><table class="table"><thead><tr><th>Tingkat</th><th class="is-num">Jumlah</th></tr></thead>
       <tbody>{siswa_rows}</tbody><tfoot><tr><td>Total</td><td class="is-num">{P["students_total"]}</td></tr></tfoot></table></div>
     <div class="info-item"><span class="info-item__ico">{H.icon("shield")}</span><div><h3>LSP P-1</h3><p>{H.esc(LSP)}</p></div></div>
   </div>
@@ -361,7 +385,7 @@ def profil() -> str:
 
     teachers = f'''<section class="section section--soft"><div class="container">
   {H.section_head("Guru & tenaga kependidikan", "89 guru dan 25 karyawan, dengan pencarian langsung.", "Data PTK")}
-  <label class="search" class="search mb-4">{H.icon("search")}<input type="search" id="guru-search" placeholder="Cari nama, mapel, atau almamater…" aria-label="Cari guru"></label>
+  <label class="search mb-4">{H.icon("search")}<input type="search" id="guru-search" placeholder="Cari nama, mapel, atau almamater…" aria-label="Cari guru"></label>
   <div class="table-wrap table--scroll">
     <table class="table" id="guru-table">
       <thead><tr><th>No</th><th>Nama</th><th>JK</th><th>Almamater</th><th>Tahun lulus</th><th>Jenjang</th><th>Mata pelajaran</th></tr></thead>
@@ -369,7 +393,7 @@ def profil() -> str:
     </table>
   </div>
   <h3 class="h3 mt-7">Tenaga kependidikan</h3>
-  <div class="table-wrap table--scroll" class="mt-3">
+  <div class="table-wrap table--scroll mt-3">
     <table class="table" id="karyawan-table">
       <thead><tr><th>No</th><th>Nama</th><th>JK</th><th>Jabatan</th></tr></thead>
       <tbody>{_rows_staff()}</tbody>
@@ -407,7 +431,7 @@ def ppdb() -> str:
     <div>
       {H.eyebrow("Kuota 2026")}
       <h2 class="h2">576 kursi murid baru</h2>
-      <p class="lead" class="mt-3">{H.esc(P["quota_note"])}</p>
+      <p class="lead mt-3">{H.esc(P["quota_note"])}</p>
       {H.btn("Lihat pengumuman hasil", "pengumuman.html", "primary", "arrow")}
     </div>
     <div class="table-wrap">
@@ -442,7 +466,7 @@ def ppdb() -> str:
         f'''<div class="acc"><button class="acc__q" type="button" aria-expanded="false">{H.esc(q)}<span class="acc__pm">+</span></button>
         <div class="acc__pane"><div>{H.esc(a)}</div></div></div>'''
         for q, a in P["faq"])
-    faq_sec = f'''<section class="section section--soft" id="faq"><div class="container" class="mw-md">
+    faq_sec = f'''<section class="section section--soft" id="faq"><div class="container mw-md">
   {H.section_head("Pertanyaan yang sering diajukan", "", "FAQ", center=True)}
   <div class="accordion">{faq}</div>
 </div></section>'''

@@ -29,6 +29,7 @@ ICONS = {
     "users": '<circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.5a3 3 0 0 1 0 5.6M17 14.2A5.5 5.5 0 0 1 21 20"/>',
     "leaf": '<path d="M4 20c8 1 15-5 16-16-9-1-15 4-16 16Z"/><path d="M9 15c2-3 5-5 8-6"/>',
     "shield": '<path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6Z"/><path d="m9 12 2 2 4-4"/>',
+    "star": '<path d="m12 3.5 2.6 5.4 6 .9-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.4 9.8l6-.9Z"/>',
 }
 
 
@@ -46,11 +47,45 @@ def esc(s) -> str:
 
 
 # ------------------------------------------------------------------- chrome
+def amb() -> str:
+    """Tiga pendar lembut di belakang seluruh halaman. Dekorasi murni:
+    aria-hidden, pointer-events none, dan tidak mengubah tata letak."""
+    return ('<div class="amb" aria-hidden="true">'
+            '<i class="amb__glow amb__glow--a"></i>'
+            '<i class="amb__glow amb__glow--b"></i>'
+            '<i class="amb__glow amb__glow--c"></i></div>')
+
+
 def brand(href: str = "index.html") -> str:
+    s = C.SCHOOL
     return f'''<a class="brand" href="{href}">
-  <img src="assets/img/logo-SMK3.png" alt="Logo SMK Negeri 8 Jember" width="75" height="73">
-  <span class="brand__name">{esc(C.SCHOOL["name"])}</span>
+  <span class="brand__logo"><img src="assets/img/logo-SMK3.png" alt="Logo SMK Negeri 8 Jember" width="75" height="73"></span>
+  <span class="brand__text">
+    <span class="brand__name">{esc(s["name"])}</span>
+    <span class="brand__tag">{esc(s["tagline"])} · {esc(s["nick"])}</span>
+  </span>
 </a>'''
+
+
+def instbar() -> str:
+    s = C.SCHOOL
+    return f'''<aside class="instbar" aria-label="Informasi resmi lembaga">
+  <div class="container instbar__inner">
+    <div class="instbar__group">
+      <span class="instbar__pill">{icon("shield")} {esc(s["status"])}</span>
+      <span class="instbar__pill instbar__pill--gold">{icon("star")} {esc(s["tagline"])}</span>
+      <span class="instbar__kv">NPSN <span class="instbar__v">{esc(s["npsn"])}</span></span>
+      <span class="instbar__sep" aria-hidden="true">|</span>
+      <span class="instbar__kv">Berdiri <span class="instbar__v">{s["founded"]}</span></span>
+      <span class="instbar__sep" aria-hidden="true">|</span>
+      <span class="instbar__kv">{esc(s["region"])}</span>
+    </div>
+    <div class="instbar__group">
+      <a class="instbar__link" href="tel:{s["phone"].replace("-", "")}">{icon("phone")} {esc(s["phone"])}</a>
+      <a class="instbar__link" href="mailto:{s["email"]}">{icon("mail")} {esc(s["email"])}</a>
+    </div>
+  </div>
+</aside>'''
 
 
 def nav(stem: str) -> str:
@@ -61,23 +96,25 @@ def nav(stem: str) -> str:
 
     links = "".join(link(h, l, a, "nav__link") for h, l, a in C.nav_for(stem))
     drawer = "".join(link(h, l, a, "drawer__link") for h, l, a in C.nav_for(stem))
-    return f'''<a class="skip" href="#main">Lewati ke isi</a>
+    return f'''{instbar()}
 <header class="site-header">
-  <div class="container site-header__inner">
-    {brand()}
-    <nav class="nav" aria-label="Navigasi utama">{links}</nav>
-    <div class="site-header__actions">
-      <button class="icon-btn" id="theme-toggle" type="button" aria-pressed="false" aria-label="Ganti tema terang atau gelap">
-        <span class="icon-btn__sun">{icon("sun")}</span>
-        <span class="icon-btn__moon">{icon("moon")}</span>
-      </button>
-      <a class="btn btn--primary btn--sm nav__cta" href="ppdb.html">SPMB 2026 {icon("arrow")}</a>
-      <button class="icon-btn nav__burger" id="burger" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="drawer">{icon("menu")}</button>
+  <div class="container">
+    <div class="site-header__bar">
+      {brand()}
+      <nav class="nav" aria-label="Navigasi utama">{links}</nav>
+      <div class="site-header__actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-pressed="false" aria-label="Ganti tema terang atau gelap">
+          <span class="icon-btn__sun">{icon("sun")}</span>
+          <span class="icon-btn__moon">{icon("moon")}</span>
+        </button>
+        <a class="btn btn--primary btn--sm nav__cta" href="ppdb.html">SPMB 2026 {icon("arrow")}</a>
+        <button class="icon-btn nav__burger" id="burger" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="drawer">{icon("menu")}</button>
+      </div>
     </div>
-  </div>
-  <div class="drawer" id="drawer" hidden>
-    {drawer}
-    <a class="btn btn--primary drawer__cta" href="ppdb.html">SPMB 2026</a>
+    <div class="drawer" id="drawer" hidden>
+      {drawer}
+      <a class="btn btn--primary drawer__cta" href="ppdb.html">SPMB 2026</a>
+    </div>
   </div>
 </header>
 <div class="ticker" aria-label="Info terbaru">
@@ -100,6 +137,10 @@ def footer() -> str:
         <p class="footer__name">{esc(s["name"])}</p>
         <p class="footer__meta">{esc(s["kind"])} · {esc(s["region"])}</p>
         <p class="footer__addr">{esc(s["address"])}</p>
+        <div class="footer__badge">
+          {icon("shield")}
+          <div><b>{esc(s["status"])}</b><span>NPSN {esc(s["npsn"])} · berdiri {s["founded"]}</span></div>
+        </div>
         <div class="footer__social">
           <a href="{s["instagram"]}" target="_blank" rel="noopener" aria-label="Instagram">{icon("instagram")}</a>
           <a href="{s["youtube"]}" target="_blank" rel="noopener" aria-label="YouTube">{icon("youtube")}</a>
@@ -161,14 +202,15 @@ def eyebrow(text: str, dot: bool = True) -> str:
     return f'<p class="eyebrow">{d}{esc(text)}</p>'
 
 
-def section_head(title: str, lead: str = "", kicker: str = "", action: str = "", center: bool = False) -> str:
+def section_head(title: str, lead: str = "", kicker: str = "", action: str = "", center: bool = False, note: str = "") -> str:
     cls = "section-head section-head--center" if center else "section-head"
     k = eyebrow(kicker) if kicker else ""
     l = f'<p class="lead">{esc(lead)}</p>' if lead else ""
     a = f'<div class="section-head__action">{action}</div>' if action else ""
+    n = f'<p class="section-head__note">{esc(note)}</p>' if note else ""
     return f'''<div class="{cls}">
   <div class="section-head__copy">{k}<h2 class="h2">{esc(title)}</h2>{l}</div>
-  {a}
+  {n}{a}
 </div>'''
 
 
@@ -183,8 +225,10 @@ def program_card(p: dict, wide: bool = False) -> str:
     return f'''<article class="{cls}" data-cluster="{p["cluster"]}" data-tilt id="{p["id"]}">
   <a class="card__media" href="jurusan.html#{p["id"]}" aria-label="{esc(p["name"])}">
     <img src="{p["img"]}" alt="" loading="lazy" decoding="async">
+    <span class="card__scrim"></span>
     <span class="card__no">{p["no"]}</span>
     <span class="card__cluster">{esc(p["cluster_label"])}</span>
+    <span class="card__time">{icon("clock")} {p["rombel"]} rombel</span>
   </a>
   <div class="card__body">
     <h3 class="card__title"><a href="jurusan.html#{p["id"]}">{esc(p["name"])}</a></h3>
@@ -207,7 +251,8 @@ def news_card(n: dict, idx: int, feature: bool = False, base: str = "berita.html
     img = n.get("i") or ""
     return f'''<article class="{cls} reveal">
   <a class="card__media" href="{href}" data-read="{esc(n["t"])}" data-i="{idx}">
-    <img src="{img}" alt="" loading="lazy" decoding="async">{play}
+    <img src="{img}" alt="" loading="lazy" decoding="async">
+    <span class="card__scrim"></span>{play}
     <span class="card__cat">{esc(cat)}</span>
   </a>
   <div class="card__body">
@@ -221,11 +266,14 @@ def news_card(n: dict, idx: int, feature: bool = False, base: str = "berita.html
 </article>'''
 
 
-def stat_card(value: str, label: str, note: str = "") -> str:
-    n = f'<span class="stat__note">{esc(note)}</span>' if note else ""
+def stat_card(value: str, label: str, ico: str = "users", tone: str = "") -> str:
+    cls = "stat__ico stat__ico--gold" if tone == "gold" else "stat__ico"
     return f'''<div class="stat">
-  <b class="stat__value" data-count="{value.replace(".", "")}">{esc(value)}</b>
-  <span class="stat__label">{esc(label)}</span>{n}
+  <div class="stat__top">
+    <b class="stat__value" data-count="{value.replace(".", "")}">{esc(value)}</b>
+    <span class="{cls}">{icon(ico)}</span>
+  </div>
+  <span class="stat__label">{esc(label)}</span>
 </div>'''
 
 
@@ -242,9 +290,11 @@ def clean_excerpt(text: str | None) -> str:
     import re as _re
     if not text:
         return "Baca selengkapnya untuk informasi lengkap kegiatan ini."
-    t = _re.sub(r"\[(?:VIDEO|AUDIO|GALERI)\]\s*", "", text, flags=_re.I)
-    t = _re.sub(r"https?://\S+", "", t)
-    t = _re.sub(r"\s{2,}", " ", t).strip(" -–—·")
+    t = _re.sub(r"\[(?:VIDEO|AUDIO|GALERI|FOTO)\]\s*:?\s*", " ", text, flags=_re.I)
+    t = _re.sub(r"(?:https?:)?//\S+", " ", t)
+    t = _re.sub(r"https?://\S*", " ", t)
+    t = _re.sub(r"\b(?:feature|embed|watch|v)=[\w-]*", " ", t, flags=_re.I)
+    t = _re.sub(r"\s{2,}", " ", t).strip(" -–—·:,.")
     return t or "Baca selengkapnya untuk informasi lengkap kegiatan ini."
 
 
@@ -293,8 +343,10 @@ def page(stem: str, body: str, body_class: str = "", extra_js: str = "") -> str:
     <p class="boot__status" id="boot-status">Menyiapkan halaman…</p>
   </div>
 </div>
+{amb()}
+<a class="skip" href="#main">Lewati ke isi</a>
 {nav(stem)}
-<main id="main">
+<main id="main" tabindex="-1">
 {body}
 </main>
 {footer()}

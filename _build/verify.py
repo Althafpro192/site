@@ -81,7 +81,7 @@ for n in PAGES:
     clean = re.sub(r"<!--.*?-->", "", body, flags=re.S)
     if not re.search(r'<a class="skip" href="#main">', clean):
         prob.append(f"{n}:skip")
-    if '<main id="main">' not in t:
+    if not re.search(r'<main id="main"[ >]', t):
         prob.append(f"{n}:main")
     if 'aria-label="Navigasi utama"' not in t:
         prob.append(f"{n}:nav")
@@ -144,13 +144,23 @@ pairs = [
     ("accent/bg", tok("--accent"), tok("--bg")),
     ("accent/soft", tok("--accent"), tok("--accent-soft")),
     ("on-accent/accent", tok("--on-accent"), tok("--accent")),
+    ("on-accent/grad-end", tok("--on-accent"), tok("--on-accent-check")),
     ("warning/warn-soft", tok("--warning"), tok("--warning-soft")),
+    ("gold-ink/gold-soft", tok("--gold-ink"), tok("--gold-soft")),
+    ("gold-ink/bg", tok("--gold-ink"), tok("--bg")),
+    ("on-gold/gold", tok("--on-gold"), tok("--gold")),
+    ("on-deep/brand-900", tok("--on-deep"), tok("--brand-900")),
+    ("on-deep-2/brand-600", tok("--on-deep-2"), tok("--brand-600")),
+    ("gold-on-deep/brand-900", tok("--gold-on-deep"), tok("--brand-900")),
+    ("brand-700/bg", tok("--brand-700"), tok("--bg")),
     ("cluster-blue/bg", tok("--cluster-informatika"), tok("--bg")),
     ("cluster-red/bg", tok("--cluster-omotif") or tok("--cluster-otomotif"), tok("--bg")),
     ("dark ink/bg", tok("--ink", True), tok("--bg", True)),
     ("dark muted/bg", tok("--ink-muted", True), tok("--bg", True)),
     ("dark faint/bg", tok("--ink-faint", True), tok("--bg", True)),
     ("dark accent/bg", tok("--accent", True), tok("--bg", True)),
+    ("dark gold-ink/bg", tok("--gold-ink", True), tok("--bg", True)),
+    ("dark on-gold/gold", tok("--on-gold", True), tok("--gold", True)),
 ]
 fails = [(n, round(ratio(a, b), 2)) for n, a, b in pairs if ratio(a, b) < 4.5]
 say(not fails, "kontras teks", f"{len(pairs)-len(fails)}/{len(pairs)} >= 4.5" + (f" — GAGAL {fails}" if fails else ""))

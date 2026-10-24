@@ -99,20 +99,21 @@
     });
   })();
 
-  /* ---------- scroll: nav, totop, parallax ---------- */
+  /* ---------- scroll: totop, parallax panggung hero ---------- */
   var totop = $("#totop");
-  var heroStack = $(".hero__stack");
+  var heroStage = $(".hero__stage");
   var ticking = false, hx = 0, hy = 0;
   var fine = window.matchMedia("(hover: hover) and (min-width: 900px)");
 
   function paint() {
     ticking = false;
     if (totop) totop.classList.toggle("is-show", window.scrollY > 700);
-    if (!heroStack || RM || !fine.matches) return;
-    var r = heroStack.getBoundingClientRect();
+    if (!heroStage || RM || !fine.matches) return;
+    var r = heroStage.getBoundingClientRect();
     if (r.bottom < 0 || r.top > window.innerHeight) return;
     var prog = (window.innerHeight - r.top) / (window.innerHeight + r.height);
-    heroStack.style.transform = "rotateX(" + ((prog - .5) * 5).toFixed(2) + "deg) rotateY(" + (hx * .5).toFixed(2) + "deg)";
+    heroStage.style.transform = "rotateX(" + (((prog - .5) * 3) - hy * .35).toFixed(2)
+      + "deg) rotateY(" + (hx * .55).toFixed(2) + "deg)";
   }
   function onScroll() {
     if (ticking) return;
@@ -120,9 +121,9 @@
     requestAnimationFrame(paint);
   }
   window.addEventListener("scroll", onScroll, { passive: true });
-  if (heroStack && fine.matches && !RM) {
-    heroStack.addEventListener("pointermove", function (e) {
-      var r = heroStack.getBoundingClientRect();
+  if (heroStage && fine.matches && !RM) {
+    heroStage.addEventListener("pointermove", function (e) {
+      var r = heroStage.getBoundingClientRect();
       hx = ((e.clientX - r.left) / r.width - .5) * 8;
       hy = ((e.clientY - r.top) / r.height - .5) * 8;
     });
