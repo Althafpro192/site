@@ -28,6 +28,7 @@
     var m = String(u || "").match(/(?:embed\/|youtu\.be\/|watch\?v=)([\w-]{11})/);
     return m ? m[1] : null;
   }
+  var SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
   var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>';
 
   /* ---------- boot ---------- */
@@ -200,25 +201,60 @@
     track.innerHTML = html + html;
   })();
 
-  /* ---------- kartu berita ---------- */
+  /* ---------- kartu berita ----------
+    Salinan persis dari components.news_card() di _build/. Foto selalu bisa
+    diperbesar, video bisa diputar, dan "Baca selengkapnya" hanya muncul kalau
+    teksnya ada — kalau tidak, tombolnya menunjuk ke video atau foto. */
   function newsCard(n, idx, feature) {
     var cat = (n.c && n.c[0]) || "Berita";
     var href = "berita.html#" + encodeURIComponent(n.t);
+    var img = n.i || "", vid = n.v || "";
+    var hasBody = !!((D.FULL || {})[n.t] || "").trim();
+    var zoom = img
+      ? '<a class="card__zoom" href="' + esc(img) + '" data-lb data-gg="berita" data-cap="' + esc(n.t) + '" aria-label="Perbesar foto: ' + esc(n.t) + '">'
+        + '<img src="' + esc(img) + '" alt="' + esc(n.t) + '" loading="lazy" decoding="async"></a>'
+      : "";
+    var playBtn = vid
+      ? '<button class="card__play" type="button" data-video="' + esc(vid) + '" data-title="' + esc(n.t) + '" aria-label="Putar video: ' + esc(n.t) + '">' + PLAY + "</button>"
+      : "";
+    var title = hasBody
+      ? '<a href="' + href + '" data-read="' + esc(n.t) + '" data-i="' + idx + '">' + esc(n.t) + "</a>"
+      : esc(n.t);
+    var foot;
+    if (hasBody) {
+      foot = '<a class="link" href="' + href + '" data-read="' + esc(n.t) + '" data-i="' + idx + '">Baca selengkapnya' + arrow() + "</a>";
+    } else if (vid) {
+      foot = '<button class="link" type="button" data-video="' + esc(vid) + '" data-title="' + esc(n.t) + '">Tonton video' + PLAY + "</button>";
+    } else if (img) {
+      foot = '<button class="link" type="button" data-lb data-src="' + esc(img) + '" data-cap="' + esc(n.t) + '">Lihat foto' + SEARCH + "</button>";
+    } else {
+      foot = "";
+    }
+    var text = cleanExcerpt(n.x) || (hasBody
+      ? "Baca selengkapnya untuk informasi lengkap kegiatan ini."
+      : (vid ? "Video dokumentasi kegiatan ini tersedia." : "Dokumentasi kegiatan — foto dapat diperbesar."));
     return '<article class="card card--news reveal' + (feature ? " card--feature" : "") + '">' +
-      '<a class="card__media" href="' + href + '" data-read="' + esc(n.t) + '" data-i="' + idx + '">' +
-        '<img src="' + esc(n.i) + '" alt="" loading="lazy" decoding="async">' +
-        (n.v ? '<span class="card__play">' + PLAY + "</span>" : "") +
-        '<span class="card__cat">' + esc(cat) + "</span></a>" +
+      '<div class="card__media">' + zoom + playBtn + '<span class="card__scrim"></span>' +
+        '<span class="card__cat">' + esc(cat) + "</span></div>" +
       '<div class="card__body">' +
         '<p class="card__kicker">' + fmtDate(n.d) + "</p>" +
-        '<h3 class="card__title"><a href="' + href + '" data-read="' + esc(n.t) + '" data-i="' + idx + '">' + esc(n.t) + "</a></h3>" +
-        '<p class="card__text">' + esc(n.x || "Baca selengkapnya untuk informasi lengkap kegiatan ini.") + "</p>" +
-        '<div class="card__foot"><a class="link" href="' + href + '" data-read="' + esc(n.t) + '" data-i="' + idx + '">Baca selengkapnya' + arrow() + "</a></div>" +
+        '<h3 class="card__title">' + title + "</h3>" +
+        '<p class="card__text">' + esc(text) + "</p>" +
+        '<div class="card__foot">' + foot + "</div>" +
       "</div></article>";
+  }
+  function cleanExcerpt(t) {
+    return String(t)
+      .replace(/\[(?:VIDEO|AUDIO|GALERI|FOTO)[^\]]*\]?/gi, " ")
+      .replace(/(?:https?:)?\/\/\S+/g, " ")
+      .replace(/\b(?:feature|embed|watch|v)=[\w-]*/gi, " ")
+      .replace(/\s{2,}/g, " ")
+      .replace(/^[\s.–—·:,]+|[\s.–—·:,]+$/g, "");
   }
   function arrow() {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   }
+
 
   /* ---------- berita: filter + cari + paginasi ---------- */
   (function berita() {
@@ -400,11 +436,11 @@
     var box = $("#lightbox"), img = $("#lb-img"), cap = $("#lb-cap");
     if (!box || !img) return;
     document.addEventListener("click", function (e) {
-      var a = e.target.closest("[data-lb], [data-doc]");
+      var a = e.target.closest("[data-lb], [data-doc], [data-lb-img]");
       if (!a) return;
       e.preventDefault();
-      img.src = a.getAttribute("href") || (a.querySelector("img") || {}).src || "";
-      if (cap) cap.textContent = a.dataset.cap || a.dataset.gg || (a.querySelector("img") || {}).alt || "";
+      img.src = a.getAttribute("href") || a.dataset.src || a.src || (a.querySelector("img") || {}).src || "";
+      if (cap) cap.textContent = a.dataset.cap || a.dataset.gg || a.alt || (a.querySelector("img") || {}).alt || "";
       openOverlay(box);
     });
     box.addEventListener("click", function (e) {
@@ -477,6 +513,12 @@
       body.innerHTML = full
         ? '<div class="prose">' + sanitize(full) + "</div>"
         : '<div class="prose"><p>' + esc(n.x || "Dokumentasi singkat kegiatan ini tersimpan di arsip redaksi Eskalaber.") + "</p></div>";
+      /* Banyak artikel sekolah hanya berisi scan poster: gambarnya harus bisa
+         diperbesar, kalau tidak isinya tidak terbaca di layar ponsel. */
+      $$("img", body).concat(hero ? [hero] : []).forEach(function (im) {
+        im.setAttribute("data-lb-img", "");
+        im.title = "Klik untuk memperbesar";
+      });
       openOverlay(sheet);
     }
 

@@ -158,7 +158,7 @@ def footer() -> str:
       <div><h2 class="footer__h">Konsentrasi</h2><ul class="footer__links">{programs}</ul></div>
       <div>
         <h2 class="footer__h">Kontak</h2>
-        <ul class="footer__links">
+        <ul class="footer__links footer__links--contact">
           <li><a href="mailto:{s["email"]}">{email_text(s["email"])}</a></li>
           <li><a href="tel:{s["phone"].replace("-", "")}">{s["phone"]}</a></li>
           <li><a href="mailto:{s["lsp_email"]}">LSP P-1: {email_text(s["lsp_email"])}</a></li>
@@ -249,26 +249,48 @@ def program_card(p: dict, wide: bool = False) -> str:
 </article>'''
 
 
-def news_card(n: dict, idx: int, feature: bool = False, base: str = "berita.html") -> str:
+def news_card(n: dict, idx: int, feature: bool = False, base: str = "berita.html", full: set | None = None) -> str:
+    """Foto selalu bisa diperbesar; video selalu bisa diputar. Tautan 'Baca
+    selengkapnya' hanya dipasang kalau teksnya memang ada — sisanya tombol
+    menunjuk ke hal yang benar-benar ditampilkan (video atau foto)."""
     cats = n.get("c") or []
     cat = cats[0] if cats else "Berita"
     href = f"{base}#{_q(n['t'])}"
     cls = "card card--news" + (" card--feature" if feature else "")
-    play = f'<span class="card__play">{icon("play")}</span>' if n.get("v") else ""
     img = n.get("i") or ""
+    vid = n.get("v") or ""
+    has_body = n["t"] in (C.full_titles() if full is None else full)
+    zoom = (f'<a class="card__zoom" href="{esc(img)}" data-lb data-gg="berita" '
+            f'data-cap="{esc(n["t"])}" aria-label="Perbesar foto: {esc(n["t"])}">'
+            f'<img src="{esc(img)}" alt="{esc(n["t"])}" loading="lazy" decoding="async"></a>') if img else ""
+    play = (f'<button class="card__play" type="button" data-video="{esc(vid)}" '
+            f'data-title="{esc(n["t"])}" aria-label="Putar video: {esc(n["t"])}">{icon("play")}</button>') if vid else ""
+    title = (f'<a href="{href}" data-read="{esc(n["t"])}" data-i="{idx}">{esc(n["t"])}</a>'
+             if has_body else esc(n["t"]))
+    if has_body:
+        foot = f'<a class="link" href="{href}" data-read="{esc(n["t"])}" data-i="{idx}">Baca selengkapnya {icon("arrow")}</a>'
+    elif vid:
+        foot = (f'<button class="link" type="button" data-video="{esc(vid)}" '
+                f'data-title="{esc(n["t"])}">Tonton video {icon("play")}</button>')
+    elif img:
+        foot = f'<button class="link" type="button" data-lb data-src="{esc(img)}" data-cap="{esc(n["t"])}">Lihat foto {icon("search")}</button>'
+    else:
+        foot = ""
+    text = clean_excerpt(n.get("x")) or (
+        "Baca selengkapnya untuk informasi lengkap kegiatan ini." if has_body
+        else ("Video dokumentasi kegiatan ini tersedia." if vid
+              else "Dokumentasi kegiatan — foto dapat diperbesar."))
     return f'''<article class="{cls} reveal">
-  <a class="card__media" href="{href}" data-read="{esc(n["t"])}" data-i="{idx}">
-    <img src="{img}" alt="" loading="lazy" decoding="async">
-    <span class="card__scrim"></span>{play}
+  <div class="card__media">
+    {zoom}{play}
+    <span class="card__scrim"></span>
     <span class="card__cat">{esc(cat)}</span>
-  </a>
+  </div>
   <div class="card__body">
     <p class="card__kicker">{_date(n["d"])}</p>
-    <h3 class="card__title"><a href="{href}" data-read="{esc(n["t"])}" data-i="{idx}">{esc(n["t"])}</a></h3>
-    <p class="card__text">{esc(clean_excerpt(n.get("x")))}</p>
-    <div class="card__foot">
-      <a class="link" href="{href}" data-read="{esc(n["t"])}" data-i="{idx}">Baca selengkapnya {icon("arrow")}</a>
-    </div>
+    <h3 class="card__title">{title}</h3>
+    <p class="card__text">{esc(text)}</p>
+    <div class="card__foot">{foot}</div>
   </div>
 </article>'''
 
@@ -293,16 +315,18 @@ def gallery_tile(g: dict) -> str:
 
 def clean_excerpt(text: str | None) -> str:
     """Ringkasan dari data.js kadang membawa URL mentah atau penanda [VIDEO].
-    Tampilkan sebagai kalimat, bukan sebagai tautan setengah jadi."""
+    Kembalikan "" kalau tidak ada isi yang tersisa — pemanggil yang memutuskan
+    kalimat penggantinya, bukan fungsi pembersih."""
     import re as _re
     if not text:
         return "Baca selengkapnya untuk informasi lengkap kegiatan ini."
-    t = _re.sub(r"\[(?:VIDEO|AUDIO|GALERI|FOTO)\]\s*:?\s*", " ", text, flags=_re.I)
+    # Penanda arsip redaksi bentuknya "[VIDEO:https://…]" — satu kesatuan dalam kurung.
+    t = _re.sub(r"\[(?:VIDEO|AUDIO|GALERI|FOTO)[^\]]*\]?", " ", text, flags=_re.I)
     t = _re.sub(r"(?:https?:)?//\S+", " ", t)
     t = _re.sub(r"https?://\S*", " ", t)
     t = _re.sub(r"\b(?:feature|embed|watch|v)=[\w-]*", " ", t, flags=_re.I)
     t = _re.sub(r"\s{2,}", " ", t).strip(" -–—·:,.")
-    return t or "Baca selengkapnya untuk informasi lengkap kegiatan ini."
+    return t
 
 
 def lsp_blocks(text: str) -> str:

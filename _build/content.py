@@ -291,6 +291,23 @@ def load_data() -> dict:
     return json.loads(payload)
 
 
+_FULL: set[str] | None = None
+
+
+def full_titles() -> set:
+    """Judul yang benar-benar punya teks artikel di data-full.js.
+
+    Delapan berita terbaru hanya poster: tidak ada teksnya sama sekali.
+    Tanpa daftar ini kartu menawarkan 'Baca selengkapnya' yang membuka
+    reader kosong — tombol yang tidak berfungsi."""
+    global _FULL
+    if _FULL is None:
+        raw = (JS / "data-full.js").read_text(encoding="utf-8")
+        data = json.loads(raw.split("=", 1)[1].strip().rstrip(";"))
+        _FULL = {t for t, body in data.items() if str(body or "").strip()}
+    return _FULL
+
+
 def page_meta(stem: str) -> dict:
     return PAGES[stem]
 

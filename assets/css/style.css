@@ -655,6 +655,8 @@ h1, h2, h3, h4 {
   object-fit: cover;
   transition: transform var(--t-4) var(--ease-out);
 }
+/* Foto berita diperbesar lewat lightbox, bukan membuka reader. */
+.card__zoom { display: block; inline-size: 100%; block-size: 100%; cursor: zoom-in; }
 .card:hover .card__media img { transform: scale(1.06); }
 
 /* Scrim: gradasi gelap di dasar foto supaya label di atasnya tetap terbaca */
@@ -1175,14 +1177,14 @@ h1, h2, h3, h4 {
 /* ---------------------------------------------------------
    LINIMASA
    --------------------------------------------------------- */
-.timeline { display: grid; gap: 0; padding-inline-start: var(--sp-6); position: relative; }
+ol.timeline { display: grid; gap: 0; padding-inline-start: var(--sp-7); position: relative; }
 .timeline::before {
   content: ""; position: absolute; inset-inline-start: 5px;
   inset-block: 8px; inline-size: 2px; background: var(--line);
 }
 .timeline__item { position: relative; padding-block-end: var(--sp-6); }
 .timeline__item::before {
-  content: ""; position: absolute; inset-inline-start: calc(var(--sp-6) * -1);
+  content: ""; position: absolute; inset-inline-start: calc(var(--sp-7) * -1);
   inset-block-start: 7px; inline-size: 12px; block-size: 12px;
   border-radius: var(--r-pill); background: var(--surface);
   border: 2px solid var(--accent);
@@ -1297,6 +1299,7 @@ h1, h2, h3, h4 {
    --------------------------------------------------------- */
 .toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; margin-bottom: var(--sp-5); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips + .masonry, .chips + .grid { margin-block-start: var(--sp-6); }
 .chip {
   display: inline-flex; align-items: center; min-block-size: 40px;
   padding: 0 var(--sp-5); border-radius: var(--r-pill);
@@ -1521,6 +1524,7 @@ h1, h2, h3, h4 {
 .footer__social a:hover { color: var(--on-accent); background: var(--grad-brand); border-color: transparent; transform: translateY(-2px); }
 .footer__h { font-size: var(--t-2xs); font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--sp-4); }
 .footer__links { display: grid; gap: 0; padding: 0; list-style: none; }
+.footer__links li { min-inline-size: 0; }
 .footer__links a { display: inline-flex; align-items: center; min-block-size: 34px; font-size: var(--t-xs); color: var(--ink-muted); }
 .footer__links a:hover { color: var(--accent); }
 .footer__bottom {
@@ -1594,6 +1598,8 @@ h1, h2, h3, h4 {
 .prose h3 { font-size: var(--t-h3); margin-top: var(--sp-6); }
 .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 .prose img { border-radius: var(--r-md); border: 1px solid var(--line); margin-inline: auto; }
+.prose img[data-lb-img], .reader__hero[data-lb-img] { cursor: zoom-in; transition: transform var(--t-2) var(--ease), box-shadow var(--t-2) var(--ease); }
+.prose img[data-lb-img]:hover, .reader__hero[data-lb-img]:hover { transform: scale(1.005); box-shadow: var(--shadow-2); }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose li + li { margin-top: 6px; }
 .prose blockquote { padding-inline-start: var(--sp-5); border-inline-start: 3px solid var(--accent-line); color: var(--ink); font-size: var(--t-lead); }
@@ -1707,7 +1713,15 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .card--wide .card__media { min-block-size: 0; aspect-ratio: 16 / 10; }
   .hero__points { grid-template-columns: 1fr; }
   .hero__float { inset-inline-start: 8px; inset-block-end: 74px; }
-  .footer__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+  /* Tautan footer diletakkan berdampingan: satu kolom = ~1650px gulir di ponsel. */
+  .footer__grid { grid-template-columns: 1fr; gap: var(--sp-7); }
+  .footer__links { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-4); }
+  .footer__links a { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-inline-size: 100%; }
+  /* Alamat surel tidak boleh dipotong — orang perlu membacanya utuh. */
+  .footer__links--contact { grid-template-columns: 1fr; }
+  .footer__links--contact a { white-space: normal; }
+  .footer__badge { max-inline-size: 460px; }
+  .footer__social { flex-wrap: wrap; }
   .ticker__label { display: none; }
   .toolbar { align-items: stretch; }
   .search { inline-size: 100%; }

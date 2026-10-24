@@ -75,6 +75,22 @@ memaksa tinggi tetap. Sisa baris tidak pernah dibiarkan menggantung: 7 kartu
 jurusan pada grid 3 kolom menjadi 3 + 3 + **1 kartu melintang penuh**
 (`.card--wide`, foto kiri, teks kanan).
 
+### Aturan tombol kartu berita
+
+Tombol pada kartu hanya boleh ada kalau isinya benar-benar ada:
+
+| Kondisi data | Aksi di foot kartu | Yang muncul |
+|---|---|---|
+| punya teks di `data-full.js` | **Baca selengkapnya** | reader (teks + foto) |
+| hanya punya video | **Tonton video** | modal YouTube |
+| hanya poster/foto | **Lihat foto** | lightbox |
+
+Foto pada semua kartu bisa diperbesar lewat lightbox, dan gambar di dalam
+reader ikut bisa diperbesar — sebagian pengumuman sekolah hanya berupa scan
+poster, tanpa zoom isinya tidak terbaca di ponsel. Delapan berita terbaru tidak
+punya teks sama sekali; daftarnya dibaca saat build lewat `content.full_titles()`,
+dan `main.js` punya cerminan aturan yang sama untuk halaman Berita.
+
 ### Font & media
 
 Tidak ada permintaan runtime ke pihak ketiga. Tidak ada ES modules dan tidak
