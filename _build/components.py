@@ -46,6 +46,13 @@ def esc(s) -> str:
     return escape(str(s), quote=True)
 
 
+def email_text(v: str) -> str:
+    """Teks email dengan titik putus lembut sesudah @ dan titik domain.
+    Tanpa ini, alamat panjang terpotong di tengah TLD ('…gmail / .com').
+    Hanya teks tampilannya; href tetap alamat bersih."""
+    return esc(v).replace("@", "@\u200b").replace(".", ".\u200b")
+
+
 # ------------------------------------------------------------------- chrome
 def amb() -> str:
     """Tiga pendar lembut di belakang seluruh halaman. Dekorasi murni:
@@ -61,7 +68,7 @@ def brand(href: str = "index.html") -> str:
     return f'''<a class="brand" href="{href}">
   <span class="brand__logo"><img src="assets/img/logo-SMK3.png" alt="Logo SMK Negeri 8 Jember" width="75" height="73"></span>
   <span class="brand__text">
-    <span class="brand__name">{esc(s["name"])}</span>
+    <span class="brand__name"><span class="brand__name-full">{esc(s["name"])}</span><span class="brand__name-short">{esc(s["name_short"])}</span></span>
     <span class="brand__tag">{esc(s["tagline"])} · {esc(s["nick"])}</span>
   </span>
 </a>'''
@@ -76,9 +83,9 @@ def instbar() -> str:
       <span class="instbar__pill instbar__pill--gold">{icon("star")} {esc(s["tagline"])}</span>
       <span class="instbar__kv">NPSN <span class="instbar__v">{esc(s["npsn"])}</span></span>
       <span class="instbar__sep" aria-hidden="true">|</span>
-      <span class="instbar__kv">Berdiri <span class="instbar__v">{s["founded"]}</span></span>
+      <span class="instbar__kv instbar__kv--quiet">Berdiri <span class="instbar__v">{s["founded"]}</span></span>
       <span class="instbar__sep" aria-hidden="true">|</span>
-      <span class="instbar__kv">{esc(s["region"])}</span>
+      <span class="instbar__kv instbar__kv--region">{esc(s["region"])}</span>
     </div>
     <div class="instbar__group">
       <a class="instbar__link" href="tel:{s["phone"].replace("-", "")}">{icon("phone")} {esc(s["phone"])}</a>
@@ -152,9 +159,9 @@ def footer() -> str:
       <div>
         <h2 class="footer__h">Kontak</h2>
         <ul class="footer__links">
-          <li><a href="mailto:{s["email"]}">{s["email"]}</a></li>
+          <li><a href="mailto:{s["email"]}">{email_text(s["email"])}</a></li>
           <li><a href="tel:{s["phone"].replace("-", "")}">{s["phone"]}</a></li>
-          <li><a href="mailto:{s["lsp_email"]}">LSP P-1: {s["lsp_email"]}</a></li>
+          <li><a href="mailto:{s["lsp_email"]}">LSP P-1: {email_text(s["lsp_email"])}</a></li>
           <li><a href="{s["tour"]}" target="_blank" rel="noopener">Tur virtual 360°</a></li>
         </ul>
       </div>
@@ -296,6 +303,61 @@ def clean_excerpt(text: str | None) -> str:
     t = _re.sub(r"\b(?:feature|embed|watch|v)=[\w-]*", " ", t, flags=_re.I)
     t = _re.sub(r"\s{2,}", " ", t).strip(" -–—·:,.")
     return t or "Baca selengkapnya untuk informasi lengkap kegiatan ini."
+
+
+def lsp_blocks(text: str) -> str:
+    """Data LSP dari data.js adalah satu blob 1600+ karakter. Kalau dicetak apa
+    adanya, satu kartu berisi tembok teks. Pecah jadi blok berjudul; kalau
+    penanda bagiannya tidak ditemukan, kembalikan sebagai satu paragraf."""
+    import re as _re
+    if not text:
+        return ""
+    t = _re.sub(r"\s+", " ", text).strip()
+    # (label, pola pemisah). Judul bagian dibuang, isinya yang diambil.
+    marks = [
+        ("Alamat kantor", r"Alamat Kantor LSP P-1\s*:?\s*"),
+        ("", r"Tujuan, Peran dan Fungsi LSP\s*"),
+        ("Tujuan", r"Tujuan\s+(?=Melaksanakan)"),
+        ("Fungsi", r"Fungsi\s+(?=LSP P-1)"),
+        ("Visi", r"Visi dan Misi\s+VISI\s+"),
+        ("Misi", r"MISI\s+(?=(?:Meningkatkan|Mendukung|Mengembangkan))"),
+    ]
+    found = []
+    for label, pat in marks:
+        m = _re.search(pat, t, _re.I)
+        if m:
+            found.append((m.start(), m.end(), label))
+    found.sort()
+    if len(found) < 3:
+        return f'<p>{esc(t)}</p>'
+    intro = t[:found[0][0]].strip()
+    parts = []
+    for i, (start, end, label) in enumerate(found):
+        stop = found[i + 1][0] if i + 1 < len(found) else len(t)
+        body = t[end:stop].strip(" .:–—-")
+        if body:
+            parts.append((label, body))
+    out = [f'<p>{esc(intro)}</p>' if intro else ""]
+    for label, body in parts:
+        if label == "Alamat kantor":
+            rows = _re.split(r"\s(?=Telepon\s*:|Faksimile\s*:|E-mail\s*:)", body)
+            cells = []
+            for n, r in enumerate(rows):
+                k, sep, v = r.partition(":")
+                v = (v if sep else r).strip()
+                if not v:
+                    continue
+                key = k.strip() if sep else "Alamat"
+                link = f'<a href="mailto:{esc(v)}">{email_text(v)}</a>' if "@" in v else esc(v)
+                cells.append(f"<div><dt>{esc(key)}</dt><dd>{link}</dd></div>")
+            out.append(f'<dl class="lsp__kv">{"".join(cells)}</dl>')
+        elif label == "Misi":
+            items = [x.strip(" .") for x in _re.split(r"(?=(?:Meningkatkan|Mendukung|Mengembangkan)\s)", body) if x.strip(" .")]
+            out.append(f'<div class="lsp__sec"><h4>{esc(label)}</h4><ul class="lsp__list">'
+                       + "".join(f"<li>{esc(i)}</li>" for i in items) + "</ul></div>")
+        else:
+            out.append(f'<div class="lsp__sec"><h4>{esc(label)}</h4><p>{esc(body)}</p></div>')
+    return "".join(out)
 
 
 def _date(iso: str) -> str:

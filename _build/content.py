@@ -14,6 +14,7 @@ JS = ROOT / "assets" / "js"
 
 SCHOOL = {
     "name": "SMK Negeri 8 Jember",
+    "name_short": "SMKN 8 Jember",
     "nick": "Eskalaber",
     "tagline": "Bisa & Hebat",
     "kind": "Sekolah Agro Industri",

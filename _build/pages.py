@@ -379,14 +379,15 @@ def profil() -> str:
   <div class="split items-start">
     <div class="table-wrap mw-sm"><table class="table"><thead><tr><th>Tingkat</th><th class="is-num">Jumlah</th></tr></thead>
       <tbody>{siswa_rows}</tbody><tfoot><tr><td>Total</td><td class="is-num">{P["students_total"]}</td></tr></tfoot></table></div>
-    <div class="info-item"><span class="info-item__ico">{H.icon("shield")}</span><div><h3>LSP P-1</h3><p>{H.esc(LSP)}</p></div></div>
+    <div class="info-item lsp"><span class="info-item__ico">{H.icon("shield")}</span><div class="lsp__body"><h3>LSP P-1</h3>{H.lsp_blocks(LSP)}</div></div>
   </div>
 </div></section>'''
 
     teachers = f'''<section class="section section--soft"><div class="container">
   {H.section_head("Guru & tenaga kependidikan", "89 guru dan 25 karyawan, dengan pencarian langsung.", "Data PTK")}
   <label class="search mb-4">{H.icon("search")}<input type="search" id="guru-search" placeholder="Cari nama, mapel, atau almamater…" aria-label="Cari guru"></label>
-  <div class="table-wrap table--scroll">
+  <p class="table-hint">{H.icon("arrow")} Geser ke samping untuk melihat kolom lainnya</p>
+  <div class="table-wrap table--scroll" tabindex="0" role="region" aria-label="Tabel guru dan tenaga kependidikan, dapat digulir mendatar">
     <table class="table" id="guru-table">
       <thead><tr><th>No</th><th>Nama</th><th>JK</th><th>Almamater</th><th>Tahun lulus</th><th>Jenjang</th><th>Mata pelajaran</th></tr></thead>
       <tbody>{_rows_teachers()}</tbody>
@@ -548,7 +549,7 @@ def kontak() -> str:
 
     info = f'''<ul class="info-list">
   <li class="info-item"><span class="info-item__ico">{H.icon("pin")}</span><div><h3>Alamat sekolah</h3><p>{H.esc(s["address"])}</p></div></li>
-  <li class="info-item"><span class="info-item__ico">{H.icon("mail")}</span><div><h3>Email &amp; telepon</h3><p><a href="mailto:{s["email"]}">{s["email"]}</a> · <a href="tel:{s["phone"].replace("-","")}">{s["phone"]}</a><br><a href="mailto:{s["lsp_email"]}">{s["lsp_email"]}</a> (LSP P-1)</p></div></li>
+  <li class="info-item"><span class="info-item__ico">{H.icon("mail")}</span><div><h3>Email &amp; telepon</h3><p><a href="mailto:{s["email"]}">{H.email_text(s["email"])}</a> · <a href="tel:{s["phone"].replace("-","")}">{s["phone"]}</a><br><a href="mailto:{s["lsp_email"]}">{H.email_text(s["lsp_email"])}</a> (LSP P-1)</p></div></li>
   <li class="info-item"><span class="info-item__ico">{H.icon("instagram")}</span><div><h3>Instagram — {s["instagram_followers"]}</h3><p><a href="{s["instagram"]}" target="_blank" rel="noopener">{s["instagram_handle"]}</a> · {s["instagram_posts"]}</p></div></li>
   <li class="info-item"><span class="info-item__ico">{H.icon("clock")}</span><div><h3>Jam layanan</h3><p>{H.esc(s["hours"])}</p></div></li>
 </ul>'''
